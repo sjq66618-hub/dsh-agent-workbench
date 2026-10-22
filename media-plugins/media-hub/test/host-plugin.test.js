@@ -107,6 +107,37 @@ test('tool declares P1 schemas, queue actions and rejects extra status input', a
   f.dispose();
 });
 
+const SUPPORTED_KEYWORDS = new Set(['type', 'oneOf', 'properties', 'required', 'additionalProperties', 'items', 'enum', 'const', 'description', 'title', 'default', 'examples']);
+const SCHEMA_TYPES = new Set(['object', 'array', 'string', 'number', 'integer', 'boolean', 'null']);
+const ONE_OF_SIBLINGS = ['properties', 'required', 'additionalProperties', 'items', 'enum', 'const'];
+
+function assertSupportedSchema(node, path = 'schema') {
+  assert.ok(node && typeof node === 'object' && !Array.isArray(node), `${path} must be a schema object`);
+  for (const key of Object.keys(node)) assert.ok(SUPPORTED_KEYWORDS.has(key), `${path}.${key} is outside the DSH supported schema subset`);
+  assert.equal(Array.isArray(node.type), false, `${path}.type must not be a type array`);
+  assert.equal('anyOf' in node, false, `${path} must not use anyOf`);
+  if ('oneOf' in node) {
+    assert.equal('type' in node, false, `${path} cannot declare both type and oneOf`);
+    for (const key of ONE_OF_SIBLINGS) assert.equal(key in node, false, `${path}.${key} is not allowed beside oneOf`);
+    assert.ok(Array.isArray(node.oneOf) && node.oneOf.length >= 2, `${path}.oneOf must hold at least two schemas`);
+    node.oneOf.forEach((entry, index) => assertSupportedSchema(entry, `${path}.oneOf[${index}]`));
+  }
+  if ('type' in node) assert.ok(SCHEMA_TYPES.has(node.type), `${path}.type must be a single supported type`);
+  for (const [key, value] of Object.entries(node.properties ?? {})) assertSupportedSchema(value, `${path}.properties.${key}`);
+  if ('items' in node) assertSupportedSchema(node.items, `${path}.items`);
+}
+
+test('P1 tool schemas stay inside the DSH supported JSON schema subset', () => {
+  const f = fixture({ musicProvider: provider() });
+  const names = [...f.tools.keys()].filter(name => name.startsWith('media_music_')).sort();
+  assert.deepEqual(names, ['media_music_details', 'media_music_lyrics', 'media_music_play', 'media_music_queue', 'media_music_search']);
+  for (const name of names) {
+    assertSupportedSchema(f.tools.get(name).parameters, `${name}.parameters`);
+    assertSupportedSchema(f.tools.get(name).output.schema, `${name}.output.schema`);
+  }
+  f.dispose();
+});
+
 test('unload removes routes/tools and invalidates retained service operations', async () => {
   const f = fixture({ musicProvider: provider() });
   const retained = f.tools.get('media_music_search');
