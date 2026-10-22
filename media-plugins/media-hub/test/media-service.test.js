@@ -2,12 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createMediaService } from '../src/host/media-service.js';
 
-test('P0 reports two enabled but unconnected providers without claiming login', () => {
+test('P1 reports an explicit unavailable music provider without claiming login', () => {
   const status = createMediaService().status();
-  assert.equal(status.phase, 'P0');
+  assert.equal(status.phase, 'P1');
   assert.equal(status.operationsEnabled, false);
   assert.deepEqual(status.providers.map(p => p.id), ['music', 'netdisk']);
-  assert.ok(status.providers.every(p => p.enabled && p.state === 'not_connected'));
+  assert.equal(status.providers[0].state, 'unavailable');
+  assert.equal(status.providers[1].state, 'not_connected');
   assert.ok(status.providers.every(p => p.accountState === 'not_checked'));
   assert.doesNotThrow(() => JSON.stringify(status));
 });
@@ -19,7 +20,7 @@ for (const [flag, id, other] of [
   test(`${flag} only disables its own provider`, () => {
     const providers = createMediaService({ [flag]: false }).status().providers;
     assert.equal(providers.find(p => p.id === id).state, 'disabled');
-    assert.equal(providers.find(p => p.id === other).state, 'not_connected');
+    assert.equal(providers.find(p => p.id === other).state, other === 'music' ? 'unavailable' : 'not_connected');
   });
   test(`${flag} rejects ambiguous non-boolean values`, () => {
     for (const value of [null, 0, 1, '', 'false', [], {}]) {

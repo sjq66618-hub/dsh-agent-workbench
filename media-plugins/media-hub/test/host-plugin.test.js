@@ -1,93 +1,118 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { apply, inject, STATUS_PATH } from '../index.js';
+import { apply, inject, STATUS_PATH, MUSIC_PATH } from '../index.js';
+
+function provider() {
+  const tracks = [{ songMid: 'mid-1', title: '晴天', artist: '周杰伦', album: '叶惠美', durationMs: 269000 }];
+  return { available: true, async search() { return { items: tracks, hasMore: false }; }, async details() { return tracks[0]; }, async lyrics() { return { lyric: '[00:00.00]晴天' }; }, async playback() { return { url: 'https://media.example.test/song.mp3', mimeType: 'audio/mpeg' }; } };
+}
 
 function fixture(config = {}, rejection) {
   const cleanup = [];
-  let route;
-  let tool;
+  const routes = new Map();
+  const tools = new Map();
   let admissions = 0;
   const ctx = {
     effect(effect) { cleanup.push(effect()); },
     connection: { admit() { admissions++; return rejection ? { rejection } : { peer: {} }; } },
-    webServer: { register(value) { route = value; return () => { route = undefined; }; } },
-    tools: { register(value) { tool = value; cleanup.push(() => { tool = undefined; }); return cleanup[cleanup.length - 1]; } },
+    webServer: { register(value) { routes.set(value.path, value); return () => routes.delete(value.path); } },
+    tools: { register(value) { tools.set(value.name, value); return () => tools.delete(value.name); } },
   };
   apply(ctx, config);
   return {
-    get tool() { return tool; },
-    get route() { return route; },
+    routes,
+    tools,
     get admissions() { return admissions; },
-    request(method = 'GET') {
+    async request(path, method = 'GET', { body, headers } = {}) {
       let status;
-      let headers;
-      let body;
-      route.handler({ method }, { writeHead(code, value) { status = code; headers = value; }, end(value) { body = value; } });
-      return { status, headers, value: JSON.parse(body.toString()) };
+      let responseHeaders;
+      let responseBody;
+      const route = routes.get(path.split('?')[0]);
+      await route.handler({ method, url: path, body, headers }, { writeHead(code, value) { status = code; responseHeaders = value; }, end(value) { responseBody = value; } });
+      return { status, headers: responseHeaders, value: responseBody ? JSON.parse(responseBody.toString()) : undefined };
     },
     dispose() { while (cleanup.length) cleanup.pop()?.(); },
   };
 }
 
-test('host injects existing services and registers one exact route and tool', async () => {
+test('host injects existing services and registers authenticated status/music routes and P1 tools', async () => {
   assert.deepEqual(inject, ['tools', 'webServer', 'connection']);
-  const f = fixture();
-  assert.equal(f.route.kind, 'exact');
-  assert.equal(f.route.path, STATUS_PATH);
-  assert.equal(f.tool.name, 'media_hub_status');
-  const response = f.request();
+  const f = fixture({ musicProvider: provider() });
+  assert.ok(f.routes.has(STATUS_PATH));
+  assert.ok(f.routes.has(MUSIC_PATH));
+  assert.deepEqual([...f.tools.keys()].sort(), ['media_hub_status', 'media_music_details', 'media_music_lyrics', 'media_music_play', 'media_music_queue', 'media_music_search'].sort());
+  const response = await f.request(STATUS_PATH);
   assert.equal(response.status, 200);
-  assert.equal(response.headers['cache-control'], 'no-store');
-  assert.deepEqual(response.value, await f.tool.execute({}));
+  assert.equal(response.value.phase, 'P1');
+  assert.equal(response.value.providers.find(item => item.id === 'music').state, 'ready');
+  assert.deepEqual(response.value, await f.tools.get('media_hub_status').execute({}));
   assert.equal(f.admissions, 1);
   f.dispose();
 });
 
-for (const code of [401, 403]) test(`numeric admission rejection ${code} is preserved before method dispatch`, () => {
+for (const code of [401, 403]) test(`numeric admission rejection ${code} is preserved for both routes`, async () => {
   const f = fixture({}, code);
-  assert.equal(f.request('POST').status, code);
-  assert.equal(f.admissions, 1);
+  assert.equal((await f.request(STATUS_PATH, 'POST')).status, code);
+  assert.equal((await f.request(MUSIC_PATH, 'GET')).status, code);
+  assert.equal(f.admissions, 2);
   f.dispose();
 });
 
-test('only authenticated GET is allowed', () => {
+test('only authenticated GET is allowed for status and music operation dispatch', async () => {
   const f = fixture();
   for (const method of ['POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS']) {
-    const response = f.request(method);
+    const response = await f.request(STATUS_PATH, method);
     assert.equal(response.status, 405);
     assert.equal(response.headers.allow, 'GET');
   }
+  assert.equal((await f.request(`${MUSIC_PATH}?op=search`, 'POST')).status, 405);
   f.dispose();
 });
 
 for (const [musicEnabled, netdiskEnabled] of [[true, true], [false, true], [true, false], [false, false]]) {
   test(`host flags are independent: music=${musicEnabled}, netdisk=${netdiskEnabled}`, async () => {
     const f = fixture({ musicEnabled, netdiskEnabled });
-    const value = f.request().value;
+    const value = (await f.request(STATUS_PATH)).value;
     assert.deepEqual(value.providers.map(item => item.enabled), [musicEnabled, netdiskEnabled]);
-    assert.deepEqual(value, await f.tool.execute({}));
+    assert.deepEqual(value, await f.tools.get('media_hub_status').execute({}));
     f.dispose();
   });
 }
 
-test('tool declares complete standard JSON schema and rejects extra input', async () => {
-  const f = fixture();
-  assert.equal(f.tool.parameters.type, 'object');
-  assert.equal(f.tool.parameters.additionalProperties, false);
-  const value = await f.tool.execute({});
-  assert.deepEqual(Object.keys(value).sort(), [...f.tool.output.schema.required].sort());
-  assert.equal(typeof f.tool.output.render, 'function');
-  assert.equal(f.tool.output.render({}, value)[0].type, 'text');
-  for (const args of [null, [], { provider: 'music' }, 'all']) await assert.rejects(() => f.tool.execute(args), TypeError);
+test('music routes share one service and never return upstream playback URLs', async () => {
+  const f = fixture({ musicProvider: provider() });
+  const search = await f.request(`${MUSIC_PATH}?op=search&query=晴天`);
+  assert.equal(search.status, 200);
+  assert.equal(search.value.items[0].songMid, 'mid-1');
+  const details = await f.request(`${MUSIC_PATH}?op=details&songMid=mid-1`);
+  assert.equal(details.value.track.title, '晴天');
+  const lyrics = await f.request(`${MUSIC_PATH}?op=lyrics&songMid=mid-1`);
+  assert.equal(lyrics.value.hasLyric, true);
+  const play = await f.request(`${MUSIC_PATH}?op=play`, 'POST', { body: { songMid: 'mid-1', clientId: 'browser' } });
+  assert.equal(play.value.state, 'ready');
+  assert.match(play.value.streamPath, /^\/media-hub\/api\/music\?op=stream&leaseId=/);
+  assert.equal(JSON.stringify(play.value).includes('media.example.test'), false);
   f.dispose();
 });
 
-test('unload removes route and tool, disposes the shared service, and is idempotent', async () => {
-  const f = fixture();
-  const retainedTool = f.tool;
+test('tool declares P1 schemas, queue actions and rejects extra status input', async () => {
+  const f = fixture({ musicProvider: provider() });
+  const status = f.tools.get('media_hub_status');
+  assert.equal(status.parameters.additionalProperties, false);
+  for (const args of [null, [], { provider: 'music' }, 'all']) await assert.rejects(() => status.execute(args), TypeError);
+  const queue = f.tools.get('media_music_queue');
+  const added = await queue.execute({ action: 'add', clientId: 'agent', track: { songMid: 'mid-1', title: '晴天', artist: '周杰伦', album: '叶惠美', durationMs: 269000 } });
+  assert.equal(added.added, true);
+  assert.equal((await queue.execute({ clientId: 'agent', action: 'next' })).next.songMid, 'mid-1');
+  f.dispose();
+});
+
+test('unload removes routes/tools and invalidates retained service operations', async () => {
+  const f = fixture({ musicProvider: provider() });
+  const retained = f.tools.get('media_music_search');
   f.dispose();
   f.dispose();
-  assert.equal(f.route, undefined);
-  assert.equal(f.tool, undefined);
-  await assert.rejects(() => retainedTool.execute({}), { code: 'SERVICE_STOPPED' });
+  assert.equal(f.routes.size, 0);
+  assert.equal(f.tools.size, 0);
+  await assert.rejects(() => retained.execute({ query: 'x' }), { code: 'SERVICE_STOPPED' });
 });

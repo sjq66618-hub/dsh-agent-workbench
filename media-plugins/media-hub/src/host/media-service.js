@@ -1,4 +1,6 @@
-export const VERSION = '0.1.0';
+import { createMusicService } from './music-service.js';
+
+export const VERSION = '0.2.0';
 
 const providers = [
   { id: 'music', label: 'QQ 音乐', flag: 'musicEnabled' },
@@ -12,6 +14,12 @@ export function createMediaService(config = {}) {
     }
     return [id, config[flag] !== false];
   }));
+  const music = createMusicService({
+    provider: config.musicProvider,
+    now: config.now,
+    leaseTtlMs: config.musicLeaseTtlMs,
+    maxQueue: config.musicMaxQueue,
+  });
   let disposed = false;
 
   return Object.freeze({
@@ -23,18 +31,25 @@ export function createMediaService(config = {}) {
       }
       return {
         schemaVersion: 1,
-        phase: 'P0',
+        phase: 'P1',
         version: VERSION,
-        operationsEnabled: false,
+        operationsEnabled: music.status().state === 'ready',
         providers: providers.map(({ id, label }) => ({
           id,
           label,
           enabled: enabled[id],
-          state: enabled[id] ? 'not_connected' : 'disabled',
-          accountState: 'not_checked',
+          ...(id === 'music' && enabled[id] ? music.status() : {
+            state: enabled[id] ? 'not_connected' : 'disabled',
+            accountState: 'not_checked',
+          }),
         })),
       };
     },
-    dispose() { disposed = true; },
+    music,
+    dispose() {
+      if (disposed) return;
+      disposed = true;
+      music.dispose();
+    },
   });
 }

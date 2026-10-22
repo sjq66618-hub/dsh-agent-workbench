@@ -6,15 +6,21 @@ const providerSchema = {
     id: { type: 'string', enum: ['music', 'netdisk'] },
     label: { type: 'string' },
     enabled: { type: 'boolean' },
-    state: { type: 'string', enum: ['not_connected', 'disabled'] },
+    state: { type: 'string', enum: ['not_connected', 'disabled', 'unavailable', 'ready'] },
     accountState: { type: 'string', enum: ['not_checked'] },
+    capabilities: {
+      type: 'object', additionalProperties: false,
+      properties: {
+        search: { type: 'boolean' }, details: { type: 'boolean' }, lyrics: { type: 'boolean' }, playback: { type: 'boolean' }, queue: { type: 'boolean' },
+      },
+    },
   },
 };
 
 export function createStatusTool(readStatus) {
   return {
     name: 'media_hub_status',
-    description: 'Read the local QQ Music and Baidu Netdisk integration status. P0 only: no account access, playback, transfers, filesystem reads, or network requests.',
+    description: 'Read the local QQ Music and Baidu Netdisk integration status. P1 music operations use the configured provider and never return credentials or upstream playback URLs.',
     parameters: { type: 'object', properties: {}, additionalProperties: false },
     output: {
       schema: {
@@ -23,9 +29,9 @@ export function createStatusTool(readStatus) {
         required: ['schemaVersion', 'phase', 'version', 'operationsEnabled', 'providers'],
         properties: {
           schemaVersion: { type: 'integer', enum: [1] },
-          phase: { type: 'string', enum: ['P0'] },
+          phase: { type: 'string', enum: ['P1'] },
           version: { type: 'string' },
-          operationsEnabled: { type: 'boolean', enum: [false] },
+          operationsEnabled: { type: 'boolean' },
           providers: { type: 'array', items: providerSchema },
         },
       },

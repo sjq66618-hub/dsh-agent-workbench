@@ -27,6 +27,10 @@ snowbound_*.zip
 # ---------- 临时开发（调研脚本已归档到 docs/research/） ----------
 _dev/
 
+# ---------- 调研中间数据（脚本可重新生成，不进仓库） ----------
+docs/research/*-raw.json
+docs/research/awesome-parsed.json
+
 # ---------- 日志 ----------
 *.log
 
