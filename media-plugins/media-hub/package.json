@@ -1,0 +1,19 @@
+{
+  "name": "@local/dsh-media-hub",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Independent QQ Music and Baidu Netdisk panels for DSH; P0 integration only.",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json"
+  },
+  "files": ["index.js", "client.js", "src", "cordis.patch.yml", "README.md"],
+  "scripts": { "test": "node --test", "check": "node --check index.js && node --check client.js" },
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": { "platform": "web", "immediately": true, "inject": [] }
+  }
+}

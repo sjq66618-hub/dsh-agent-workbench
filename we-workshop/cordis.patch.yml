@@ -1,0 +1,3 @@
+- insert:
+    - id: we-workshop
+      name: '@local/dsh-we-workshop'

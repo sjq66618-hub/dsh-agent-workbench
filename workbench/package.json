@@ -1,0 +1,12 @@
+{
+  "name": "@local/dsh-workbench",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal agent workbench presets for DeepSeek Harness: one dispatcher plus four specialists.",
+  "type": "module",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
