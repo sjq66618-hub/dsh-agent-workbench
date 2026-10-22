@@ -6,8 +6,8 @@
 
 ### 新增
 
-- `docs/decorations.md` — DSH 装饰插件合集，1269 条，按皮肤 / 主题 / 壁纸 / 桌面宠物 / 启动动画 / 字体 / 图标 / 动效分 8 类，每条附 npm 包名、周下载量、许可证与一行说明。
-- `docs/research/` — 三个可复现脚本：`fetch-decorations.mjs` 抓 npm、`parse-awesome.mjs` 解析社区清单、`build-catalog.mjs` 合并去重生成目录。第三路是官方插件索引 `dsh-plugin-catalog`（3261 条，带官方分类与中英双语描述），脚本 `fetch-catalog.mjs`；第四路是 GitHub 仓库搜索（17 组关键词，929 个命中），脚本 `fetch-github.mjs`。
+- `docs/decorations.md` — DSH 装饰插件合集，1299 条，按皮肤 / 主题 / 壁纸 / 桌面宠物 / 启动动画 / 字体 / 图标 / 动效分 8 类，每条附 npm 包名、周下载量、许可证与一行说明。
+- `docs/research/` — 三个可复现脚本：`fetch-decorations.mjs` 抓 npm、`parse-awesome.mjs` 解析社区清单、`build-catalog.mjs` 合并去重生成目录。第三路是官方插件索引 `dsh-plugin-catalog`（3261 条，带官方分类与中英双语描述），脚本 `fetch-catalog.mjs`；第四路是 GitHub 仓库搜索（17 组关键词翻到第 5 页，3719 个原始命中，按星标 ≥ 1 等门槛筛后 968 个），脚本 `fetch-github.mjs`。
 
 ## [1.0.0] — 2026-10-23
 

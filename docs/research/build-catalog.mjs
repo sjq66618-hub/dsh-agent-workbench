@@ -189,7 +189,7 @@ if (github?.rows?.length) {
 }
 
 // --- 全局排除：客户端外壳、SDK 这类会被误当成「皮肤」的仓库 ---
-const GLOBAL_EXCLUDE = /deepseek-harness-desktop|harness-desktop|dsh-desktop-client|(^|\/)dsh-sdk/i;
+const GLOBAL_EXCLUDE = /deepseek-harness-desktop|harness-desktop|dsh-desktop-client|(^|\/)dsh-sdk|pojia|prompt-?swap|persona-?swap/i;
 const kept = finalRows.filter((r) => !GLOBAL_EXCLUDE.test(`${r.title} ${r.repo}`));
 
 // --- 按类别分组，组内按下载量降序、无下载量的按星标再按名称 ---
