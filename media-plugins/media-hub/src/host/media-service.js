@@ -33,7 +33,7 @@ export function createMediaService(config = {}) {
         schemaVersion: 1,
         phase: 'P1',
         version: VERSION,
-        operationsEnabled: music.status().state === 'ready',
+        operationsEnabled: enabled.music === true && music.status().state === 'ready',
         providers: providers.map(({ id, label }) => ({
           id,
           label,

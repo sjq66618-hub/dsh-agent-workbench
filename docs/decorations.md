@@ -1,6 +1,6 @@
 # DSH 装饰插件合集
 
-> 皮肤、主题、壁纸、桌面宠物、启动动画、字体图标——一份按类别整理好的索引。共 **467** 条。
+> 皮肤、主题、壁纸、桌面宠物、启动动画、字体图标——一份按类别整理好的索引。共 **517** 条。
 >
 > 数据：npm registry 实测（2355 个 DSH 相关包中筛出 637 个装饰候选）+ awesome-dsh-plugin 列表 1594 条中筛出 166 条装饰条目。
 > 生成时间：2026-10-22。下载量为 npm 周下载，缺失记「—」。
@@ -21,14 +21,14 @@ dsh plugin add <owner>/<repo>
 
 ## 分类导航
 
-- [皮肤 / 换肤包](#skin) · 97 条
-- [主题 / 配色](#theme) · 139 条
-- [壁纸 / 背景](#wallpaper) · 42 条
-- [桌面宠物 / 吉祥物](#pet) · 100 条
-- [启动动画 / 开场](#boot) · 25 条
-- [字体](#font) · 15 条
-- [图标 / 光标 / 头像](#icon) · 42 条
-- [动效 / 粒子](#animation) · 7 条
+- [皮肤 / 换肤包](#skin) · 98 条
+- [主题 / 配色](#theme) · 171 条
+- [壁纸 / 背景](#wallpaper) · 45 条
+- [桌面宠物 / 吉祥物](#pet) · 102 条
+- [启动动画 / 开场](#boot) · 28 条
+- [字体](#font) · 16 条
+- [图标 / 光标 / 头像](#icon) · 46 条
+- [动效 / 粒子](#animation) · 11 条
 
 ## 先看这几个
 
@@ -43,9 +43,9 @@ dsh plugin add <owner>/<repo>
 | 皮肤 | [open-sea-skin](https://github.com/d-dev0101/open-sea-skin) | `open-sea-skin` | 1223 | Realtime WebGPU ocean skin with quick controls for waves, daylight, glass… |
 | 主题 | [dsh-opencode-palette](https://github.com/FeatherHunter/dsh-opencode-palette) | `dsh-opencode-palette` | 2077 | Ports all 38 opencode themes (33 TUI + 4 desktop 2.0 + system) into DeepSeek… |
 | 主题 | [dsh-theme-studio](https://github.com/hj01857655/dsh-plugins) | `dsh-theme-studio` | 2008 | Customize the dsh UI theme: 12 accent presets, dark-mode aware accents with a… |
+| 主题 | [dsh-catppuccin-theme](https://github.com/NoNameLeGo/dsh-catppuccin-theme) | `@nonamelego/dsh-catppuccin` | 1871 | DSH Web GUI 的 Catppuccin 主题插件：Latte、Frappé、Macchiato、Mocha… |
 | 主题 | [dsh-claude-code-desktop-theme](https://github.com/165890/dsh-claude-code-desktop-theme) | `dsh-claude-code-desktop-theme` | 1255 | Claude Code desktop look for the DeepSeek Harness Web GUI: warm cream surfaces… |
 | 主题 | [dsh-theme-endfield](https://github.com/ymh0000123/dsh-theme-endfield) | `dsh-theme-endfield` | 784 | DeepSeek Harness web theme: the industrial editorial look of the Arknights… |
-| 主题 | [dsh-claude-desktop-theme](https://github.com/zkforge/dsh-claude-desktop-theme) | `dsh-claude-desktop-theme` | 707 | Claude Code Desktop-style theme for DeepSeek Harness (DSH) Desktop on macOS and… |
 | 壁纸 | [dsh-background-by-model](https://github.com/HarmlessFunny/dsh-background-by-model) | `dsh-background-by-model` | 1166 | Per-model appearance for the DSH Web UI: an ordered rule list matched against… |
 | 壁纸 | [dsh-wallpaper-bg](https://github.com/nishuoyang/dsh-wallpaper-bg) | `dsh-wallpaper-bg` | 806 | DeepSeek Harness（dsh web 网页界面与 0.2 桌面端）独立壁纸背景插件：内置壁纸 / 自定义上传 / Wallpaper Engine… |
 | 壁纸 | [wallpaper-engine](https://github.com/yu502950715yang/dsh-use-wallpaper) | `@dsh-use/wallpaper-engine` | 661 | 为 DSH（DeepSeek Harness）Web GUI 提供 Wallpaper Engine 壁纸背景：Scene 壁纸由… |
@@ -67,8 +67,8 @@ dsh plugin add <owner>/<repo>
 | 图标 | [dsh-emoji](https://github.com/hellodigua/dsh-emoji) | `dsh-emoji` | 406 | Tiny semantic inline emoji for DSH Agent responses |
 | 图标 | [dsh-ui-settings-icons](https://github.com/suntianc/dsh-ui-settings-icons) | `dsh-ui-settings-icons` | 273 | Adds custom icons to the DSH Settings sidebar and exposes a keyed… |
 | 图标 | [smooth-cursor](https://github.com/Lacquervii/smooth-cursor) | `dsh-smooth-cursor` | 249 | Smooth comet-mode animated caret for the DSH Web composer: a glowing comet… |
+| 图标 | [dsh-cursor-acp](https://github.com/loeanxi/dsh-cursor-acp) | `dsh-cursor-acp` | 152 | 将独立任务交给同机已登录的 Cursor 命令行，并提供命令行就绪/代理诊断、子模型设置和只读连通性测试。 |
 | 图标 | [dsh-realtimeavatar](https://github.com/theinfluencecompany/dsh-realtimeavatar) | `dsh-realtimeavatar` | 104 | Realtime Avatar (realtimeavatar.ai) for the DeepSeek Harness: the developer's… |
-| 图标 | [dsh-cursor-theme](https://github.com/auki-zy/dsh-cursor-theme) | `dsh-cursor-theme` | 65 | Customize the PC mouse cursor for every UI state inside DeepSeek Harness. 在 DSH… |
 | 动效 | [dsh-whale-particles](https://github.com/fewoot/dsh-whale-particles) | `dsh-whale-particles` | 348 | Dot-matrix backdrop for the DSH Web UI: the dots form the DeepSeek whale or a… |
 | 动效 | [dsh-animations](https://github.com/kkutysllb/dsh-animations) | `dsh-animations` | 32 | DSH 原生动效技能包：8 个 HTML 动画技能（PPT 翻页演示 / 流程图 / 网络协议可视化 / 动态架构图 / 学霸笔记 / 卡片剧场 / 视频分镜… |
 | 动效 | [dsh-animation-optimization](https://github.com/kelemiao/dsh-animation-optimization) | `dsh-animation-optimization` | 17 | DSH 动画优化：输出流式动画与 Claude Code 风格外观插件 |
@@ -174,6 +174,7 @@ dsh plugin add <owner>/<repo>
 | [dsh-skin-xuyuanwu](https://github.com/elong16/dsh-skin-xuyuanwu) | `elong16/dsh-skin-xuyuanwu` | — | — | Wishing House theme skin with warm amber glow, live moon phases, meteors, typing sparks, procedural chime audio, and… |
 | [dsh-f1-skin](https://github.com/frank-fan-818/dsh-f1-skin) | `dsh-f1-skin` | — | MIT | An F1 Race Control theme for DSH Web with four switchable team skins, broadcast-photo backgrounds, light and dark… |
 | [dsh-restart-button](https://github.com/FuriousKinght/dsh-restart-button) | `furiouskinght/dsh-restart-button` | — | — | Adds a Windows-only button at the foot of the sidebar that restarts the DSH desktop app and reloads the page when it… |
+| [dsh-wtskin-project](https://github.com/Wuqiu-Ying/dsh-wtskin-project) | `wuqiu-ying/dsh-wtskin-project` | — | — | 战争雷霆自定义涂装插件：四点 UV 取点器、按四边形裁切的艺术图层，导出 PNG/DDS/.blk。 |
 
 ## 主题 / 配色
 
@@ -181,6 +182,7 @@ dsh plugin add <owner>/<repo>
 |---|---|---|---|---|
 | [dsh-opencode-palette](https://github.com/FeatherHunter/dsh-opencode-palette) | `dsh-opencode-palette` | 2077 | MIT | Ports all 38 opencode themes (33 TUI + 4 desktop 2.0 + system) into DeepSeek Harness, including 25 IP preset palettes… |
 | [dsh-theme-studio](https://github.com/hj01857655/dsh-plugins) | `dsh-theme-studio` | 2008 | MIT | Customize the dsh UI theme: 12 accent presets, dark-mode aware accents with a contrast guard, density, font family… |
+| [dsh-catppuccin-theme](https://github.com/NoNameLeGo/dsh-catppuccin-theme) | `@nonamelego/dsh-catppuccin` | 1871 | MIT | DSH Web GUI 的 Catppuccin 主题插件：Latte、Frappé、Macchiato、Mocha 四套主题接入原生主题系统，一键切换并记住选择；另附可开关的玻璃质感皮肤，顶栏、侧边栏、输入框、统计行与轨迹视图的磨砂玻璃效… |
 | [dsh-claude-code-desktop-theme](https://github.com/165890/dsh-claude-code-desktop-theme) | `dsh-claude-code-desktop-theme` | 1255 | MIT | Claude Code desktop look for the DeepSeek Harness Web GUI: warm cream surfaces, terracotta accent, embedded serif UI… |
 | [dsh-theme-endfield](https://github.com/ymh0000123/dsh-theme-endfield) | `dsh-theme-endfield` | 784 | MIT | DeepSeek Harness web theme: the industrial editorial look of the Arknights: Endfield official site — cream paper, ink… |
 | [dsh-claude-desktop-theme](https://github.com/zkforge/dsh-claude-desktop-theme) | `dsh-claude-desktop-theme` | 707 | MIT | Claude Code Desktop-style theme for DeepSeek Harness (DSH) Desktop on macOS and Windows, with light/dark themes… |
@@ -190,19 +192,24 @@ dsh plugin add <owner>/<repo>
 | [dsh-theme-manager](https://github.com/runcat-tommy/dsh-theme-manager) | `dsh-theme-manager` | 461 | MIT | Two-level theme manager for DeepSeek Harness Web: pick a culture/scene, a national flag, a developer palette, or a bold… |
 | @qlzt/dsh-client-ui-theme | `@qlzt/dsh-client-ui-theme` | 359 | MIT | Theme plugin: Host bootstrap for the pre-plugin palette; DOM-free ThemeRuntime for light/dark/system state; --dsw-*… |
 | [dsh-themes](https://github.com/mangmax/dsh-themes) | `dsh-themes` | 325 | MIT | DSH 外观与主题插件:内置调色板、Open VSX 搜索导入、颜色参数编辑器、明暗独立归属 |
+| [dsh-client-ui-paopaocat](https://github.com/zmm863-commits/dsh-client-ui-paopaocat) | `dsh-client-ui-paopaocat` | 311 | MIT | 为 DSH Web 界面打造的奇幻玻璃拟态皮肤：月光冥界森林，青绿流云缓缓翻涌、绯红彼岸花自左下蔓延、角落里趴着一只睡猫，底层是 WebGL2 流体；另有自定义壁纸与视频背景。内置两套可一键切换的风格（淡雅 /… |
 | [dsh-nico-theme](https://github.com/more-nico/dsh-nico-theme) | `dsh-nico-theme` | 307 | MIT | Nico glass theme for DeepSeek Harness Web UI — glass material rendered by nico-glass-kit. Adapted for DSH 0.2.0-rc.2 /… |
 | [dsh-theme-gallery](https://github.com/renjie2026/dsh-theme-gallery) | `dsh-theme-gallery` | 254 | MIT | A theme gallery for DeepSeek Harness (DSH): JSON-defined skins with full-screen coverage and sidebar scenery, a… |
 | [dsh-theme-xiaohei](https://github.com/lemoncat7/dsh-theme-xiaohei) | `@lemoncat7/dsh-theme-xiaohei` | 237 | MIT | A Luo Xiaohei-inspired animated dark theme for DeepSeek Harness |
 | [dsh-neu-theme](https://github.com/lhy723/dsh-neu-theme) | `dsh-neu-theme` | 217 | MIT | Neumorphism soft-UI theme for DeepSeek Harness web — gentle raised-and-recessed surfaces in a cream light and an… |
 | [dsh-theme-cutout-clash](https://github.com/yrracowl/dsh-theme-cutout-clash) | `dsh-theme-cutout-clash` | 216 | MIT | EN: Selectable neo-brutalist/pop-art themes for DeepSeek Harness Web with calm reading surfaces. 0.5.11 targets the… |
 | [dsh-thirteen-bg](https://github.com/feng78-boop/dsh-thirteen-bg) | `dsh-thirteen-bg` | 160 | MIT | Animated and video live wallpaper for the DeepSeek Harness Web GUI — GIF, animated WebP/APNG and static PNG/JPEG… |
+| [dsh-diorama](https://github.com/ZaVang/dsh-diorama) | `dsh-diorama` | 150 | MIT | 角色皮肤舞台：雪乃·暖阳日常与隐秘年代志双主题，各带双角色立绘与表情贴纸；可视化装饰看板支持拖动/缩放/旋转/坐标精调/锚定切换/上传素材，装饰包（素材+布局）可导出分享、导入后自动打开看板继续调整。 |
 | [dsh-theme-plugin](https://github.com/nevertoday/dsh-theme-plugin) | `dsh-theme-plugin` | 143 | MIT | 中国传统色 DeepSeek Harness 主题包 · Chinese traditional color themes for DeepSeek Harness |
+| [dsh-yorha-ui](https://github.com/MrmoLabs/dsh-yorha-ui) | `dsh-yorha-ui` | 134 | MIT | 一款面向 DeepSeek Harness Web 的 NieR:Automata / YoRHa 风格工业终端主题，提供沙色与炭黑配色、直角几何和全界面样式。 |
 | [solarized-dsh-theme](https://github.com/zhijun-dai/solarized-dsh-theme) | `@yuquexianzhou/solarized-dsh-theme` | 122 | MIT | Solarized + Selenized themes for DeepSeek Harness: four faithful palettes (Solarized Dark/Light, Selenized Dark/Light)… |
 | [dsh-theme-tuner](https://github.com/shawnlone/dsh-theme-tuner) | `dsh-theme-tuner` | 118 | MIT | DSH web plugin: theme customization placed under the built-in Appearance (外观) settings. It reuses the Appearance… |
+| [dsh-edex-xry-ui](https://github.com/ph4310822/dsh-edex-xry-ui) | `@danielng23/dsh-edex-xry-ui` | 118 | MIT | 以 XRY/B1 医疗 HUD 为主题色的 eDEX-UI 风格 DSH 外壳：右侧 ECG 心电波形与旋转雷达扫描盘、左侧能量条仪表、底部 DATA TIMELINE 扫描日志表，青蓝近黑 CRT 皮肤包裹原始界面。 |
 | [dsh-session-theme](https://github.com/Xliecc/dsh-session-theme) | `dsh-session-theme` | 117 | MIT | Shows every session theme in the DSH Web left sidebar immediately on page load by warming the session projection cache… |
 | [dsh-outerwilds-theme](https://github.com/xikan0/dsh-outerwilds-theme) | `dsh-outerwilds-theme` | 108 | SEE LICENSE IN LICENSE | 以《星际拓荒》为主题的 DSH Web 与 Windows Desktop 外观插件 |
 | [dsh-theme-tarkov](https://github.com/zhigengniao258/dsh-theme-tarkov) | `dsh-theme-tarkov` | 102 | MIT | Escape from Tarkov themed plugin for the DeepSeek Harness Web UI: hero Beta-warning banner, translucent looping video… |
 | [dsh-theme-kit](https://github.com/ink5897/dsh-theme-kit) | `dsh-theme-kit` | 99 | MIT | A DeepSeek Harness Web GUI appearance kit: 32 preset themes, custom backgrounds (wallpaper / glass / texture), per-zone… |
+| [DSH-appearance](https://github.com/LX-HMKK/DSH-appearance) | `@hmkk/dsh-appearance` | 99 | MIT | 轻量的 DSH 字体与主题插件：中英文与代码字体选择器（只列本机已安装的字体），以及 One Dark Pro、Dracula、Nord、GitHub、Catppuccin 五套官方色板预设，全部走官方主题… |
 | [dsh-tui-theme](https://github.com/xiaoxiaohaigui/dsh-tui-theme) | `dsh-tui-theme` | 77 | MIT | Blossom status line and /settings section for dsh-TUI. The pink theme family (pink-night/pink-day/pink-ansi) has moved… |
 | dsh-theme-button | `dsh-theme-button` | 40 | MIT | Floating theme widget for DeepSeek Harness: switch the official appearance, and set a custom background (picture or… |
 | [dsh-theme-library](https://github.com/zaimokuza-yoshiteru/dsh-theme-library) | `@zaimokuza/dsh-theme-library` | 35 | SEE LICENSE IN LICENSE | Extensible animated theme library for DeepSeek Harness |
@@ -310,14 +317,40 @@ dsh plugin add <owner>/<repo>
 | [hcguo-public](https://github.com/HCGuo2000/hcguo-public/tree/main/plugins/amber-forge) | `hcguo2000/hcguo-public` | — | — | Amber CRT-style skin for DeepSeek Harness: overrides 14 theme tokens and 23 static palette entries, forces a monospace… |
 | [dsh-theme-herta](https://github.com/HerTa-st/dsh-theme-herta) | `dsh-theme-herta` | — | MIT | A Herta theme for DeepSeek Harness: an ASCII boot opening ported from the upstream Herta project, a violet palette of… |
 | [dsh-orca-glass](https://github.com/huzhengbang2007/dsh-orca-glass) | `huzhengbang2007/dsh-orca-glass` | — | — | DSH Web plugin that injects an SVG (feTurbulence + feDisplacementMap) refraction filter and applies it through… |
+| [dsh-ui-liquid-glass](https://github.com/iStarryDust/dsh-ui-liquid-glass) | `istarrydust/dsh-ui-liquid-glass` | — | — | DSH 全液态玻璃皮肤：13 个可调折射液态玻璃面、随时段轮换的壁纸、四档主题色、水滴样式高亮飞镜。 |
+| [dsh-flowglass](https://github.com/Iwctwbh/dsh-flowglass) | `iwctwbh/dsh-flowglass` | — | — | DeepSeek Harness 会话实时流程图，可查看工具调用、并行分组、子代理分支和逐层详情。 |
+| [dsh-liquid-glass-input](https://github.com/jkamkk/dsh-liquid-glass-input) | `jkamkk/dsh-liquid-glass-input` | — | — | 给 DSH Web GUI 输入卡加上液态玻璃折射效果与弹簧按压动画。已发布 npm：dsh plugin --profile web add dsh-liquid-glass-input。 |
+| [deepseek-style-theme](https://github.com/Lichtspur/deepseek-style-theme) | `lichtspur/deepseek-style-theme` | — | — | 为 dsh web GUI 复刻 DeepSeek 官网风格的主题皮肤：流体粒子背景、玻璃拟态侧边栏与输入框、运行中子代理面板与 DSTT 高峰时段配色。 |
+| [ds-hentai](https://github.com/lisongxuan/ds-hentai) | `ds-hentai` | — | MIT | ExHentai 皮肤 for DeepSeek Harness。DS Hentai / DeepSeek Hentai，深炭底、浅灰文字、灰色边框；会话列表像画廊索引，发送框像搜索栏。预览Demo：https://dshentai-dem… |
+| [dsh-node-appearance](https://github.com/Max-Null/dsh-node-appearance) | `@max-null/dsh-node-appearance` | — | MIT | DeepSeek Harness Web GUI 会话节点外观插件：按节点类别/工具名可配置着色（左侧色条 + 淡色底），附带"显示思考过程"开关；纯前端渲染增强，改动即时生效并持久化到 DSH 用户设置文件。 |
 | [DSH-Claude-Style-Reasoning-Slider](https://github.com/MEMZ-JZY/DSH-Claude-Style-Reasoning-Slider) | `memz-jzy/dsh-claude-style-reasoning-slider` | — | — | Animated Claude-style reasoning-effort slider and model picker that replaces the native DSH model selector. |
+| [dsh-markdown-xyy](https://github.com/mengnanxyyyy/dsh-markdown-xyy) | `dsh-markdown-xyy` | — | MIT | 轻量级对话 Markdown 主题插件——增强原生着色，4 套内置主题（浅/深双档）、用户自定义 CSS 主题、系统感知自动切换、内置主题编辑器，提升快速阅读体验。 |
+| [dsh-ui-liteglass](https://github.com/mumuer1024/dsh-ui-liteglass) | `dsh-ui-liteglass` | — | MIT | DeepSeek Harness 轻量级外观皮肤：自定义壁纸、玻璃质感面板与重点色；服务端持久化、多设备一致，不接管原生深浅色。 |
+| [dsh-sky-window](https://github.com/nickfast2025/dsh-sky-window) | `nickfast2025/dsh-sky-window` | — | — | 为 DSH 网页工作区添加按城市当地时间变化的天空主题，支持太阳移动、日夜配色、浮云、时间预览与沉浸天空。 |
+| [dsh-output-styles](https://github.com/PerryLink/dsh-output-styles) | `perrylink/dsh-output-styles` | — | — | 运行时切换模型输出风格（对标 Claude Code outputStyles），另加 output.render.* 呈现协议：/style 命令、按会话持久化、systemPrompt 注入、六个内置风格、Web… |
 | [dsh-lifeline](https://github.com/Physicolor/dsh-lifeline) | `physicolor/dsh-lifeline` | — | — | Right-side message navigation rail for DeepSeek Harness: per-message tick marks, hover-to-expand preview drawer, smooth… |
 | [dsh-ui-harmonizer](https://github.com/Physicolor/dsh-ui-harmonizer) | `physicolor/dsh-ui-harmonizer` | — | — | UI harmonizer for DeepSeek Harness: normalizes unfinished or self-contradictory official UI, reconciles style conflicts… |
 | [dsh-widgets](https://github.com/Physicolor/dsh-widgets) | `physicolor/dsh-widgets` | — | — | A customizable widget rail for the right side of DeepSeek Harness: 61 cards covering session stats, tokens and cache… |
 | [dsh-theme-colorizer](https://github.com/RealHacker/dsh-theme-colorizer) | `realhacker/dsh-theme-colorizer` | — | — | A Deepseek Harness plugin that gives its UI color themes. |
+| [dsh-theme-liuguang](https://github.com/ShokouP/dsh-theme-liuguang) | `shokoup/dsh-theme-liuguang` | — | — | 给 DSH 界面的两套可切换设计语言：内部发光的液态玻璃，与米色/血红/墨黑的苏联构成主义海报；附带个性化面板、投放式 CSS 皮肤包与 7 种表情的鲸鱼娘桌宠。 |
+| [dsh-plugin-liquid-glass](https://github.com/smj-1680/dsh-plugin-liquid-glass) | `dsh-plugin-liquid-glass` | — | MIT | 适用于 DSH 桌面端的液态玻璃 UI 美化插件，可与大部分壁纸插件联动使用，目前仅适配深色模式。 |
+| [dsh-liquid-glass-balance-card](https://github.com/SoDaZilla-zzz/dsh-liquid-glass-balance-card) | `sodazilla-zzz/dsh-liquid-glass-balance-card` | — | — | DSH 网页右上角可拖动 3D 液态玻璃余额卡片：显示 DeepSeek API 余额、累计消费与 Token 统计（今天/昨天/近7天/近30天/全部），玻璃参数/3D 厚度/颜色均可调，内置官方充值入口。 |
+| [dsh-blue-whale](https://github.com/starslittle/dsh-blue-whale) | `dsh-blue-whale` | — | MIT | 复刻 DeepSeek Chat 蓝鲸配色的皮肤，亮色/深色跟随系统外观。 |
+| [beautiCode](https://github.com/starsstreaming/beautiCode) | `beauticode-dsh` | — | MIT | 为 DSH Web 与 Desktop 设置本地图片与 MP4 视频背景（也支持 Codex、Cursor、豆包、WorkBuddy）：侧栏「背景」面板、可保存命名主题、声音开关、恢复上次背景、只留背景的摸鱼模式，以及… |
 | [dsh-chat-history](https://github.com/Stylelinzzz/dsh-chat-history) | `stylelinzzz/dsh-chat-history` | — | — | Adds a "History" conversation view tab listing the session's user messages as a clickable directory, with auto-paging… |
+| [dsh-minecraft-ui](https://github.com/TFboy1/dsh-minecraft-ui) | `tfboy1/dsh-minecraft-ui` | — | — | 将 DSH Web 直接呈现为可游玩的全屏第一人称 Minecraft 风格体素界面，而非只更换颜色的皮肤：用户可以在可持久化的 Three.js… |
+| [dsh-ui-appearance](https://github.com/TQSY114514/dsh-ui-appearance) | `dsh-ui-appearance` | — | MIT | DeepSeek Harness 外观自定义:主题调色、壁纸与视频背景、半透明与毛玻璃。 |
+| [dsh-deepseek-theme-studio](https://github.com/tuibe/dsh-deepseek-theme-studio) | `tuibe/dsh-deepseek-theme-studio` | — | — | DSH Web GUI 客户端主题插件：流体背景、毛玻璃面板与量子化着色器效果，100 项参数可调并持久化到 JSON 文件。 |
+| [dsh-liquid-glass](https://github.com/Ultronen/dsh-liquid-glass) | `dsh-liquid-glass` | — | MIT | 一键让整个 DeepSeek Harness 界面通透起来：透明度滑块随心调，背景图自由换。 |
+| [dsh-glass-weather](https://github.com/w-j-y-wjy/dsh-glass-weather) | `w-j-y-wjy/dsh-glass-weather` | — | — | 会话顶栏的玻璃天气胶囊：23 种天气状态各自配色、SVG 图标与 canvas 粒子层，可按字段开关显示内容，并注册 get_weather 工具（Open-Meteo 免密钥数据）。 |
+| [dsh-dragon-control](https://github.com/wangtheme-coder/dsh-dragon-control) | `wangtheme-coder/dsh-dragon-control` | — | — | 仅支持 Windows x64，0.5.4 预览版：两个受控工具（dragon_browser 与 dragon_desktop），网页走 DOM/CDP、桌面走 Windows UI Automation，按网站来源和可执行文件分… |
+| [dsh-Xiao-theme](https://github.com/Xian-JL/dsh-Xiao-theme) | `xian-jl/dsh-xiao-theme` | — | — | 面向 DeepSeek Harness Web 与 Desktop 的魈角色主题，提供明暗配色、可切换立绘、可拖动伙伴、会话状态反馈及可选的官方 DeepSeek 余额展示。 |
 | [xiao-ui-theme-ts](https://github.com/jinxlux/xiao-theme-dsh-ui-plugin) | `xiao-ui-theme-ts` | — | MIT | Customizable theme plugin for DeepSeek Harness web UI. Ships with a Xiao-style jade palette by default; accent color… |
+| [dsh-client-ui-seaglass](https://github.com/xiyunyunyun/dsh-client-ui-seaglass) | `dsh-client-ui-seaglass` | — | MIT | Seaglass是一个高自由度的玻璃质感主题。 |
 | [dsh-custom-style](https://github.com/yutao8/dsh-custom-style) | `yutao8/dsh-custom-style` | — | — | Adds a Custom CSS section to Settings for adjusting dialog dimensions, font sizes, full-window wallpapers, and… |
+| [Catppuccin-dsh-theme](https://github.com/zhijun-dai/Catppuccin-dsh-theme) | `dsh-catppuccin` | — | MIT | 🐱 Catppuccin 主题插件：充满活力、令人放松的柔和彩色主题。遵循官方 26 色粉彩盘，🌻 Latte / 🪴 Frappé / 🌺 Macchiato / 🌿 Mocha… |
+| [dsh-ivory](https://github.com/ZJUZhiyuCai/dsh-ivory) | `zjuzhiyucai/dsh-ivory` | — | — | DSH Web 暖中性色明暗主题，支持响应式布局、双语设置、安全 Markdown 预览、内容块复制与无遥测运行。 |
+| [dsh-vscode-themes2](https://github.com/zxbc/dsh-vscode-themes2) | `zxbc/dsh-vscode-themes2` | — | — | 在 DeepSeek Harness Web UI 中浏览、搜索、安装并应用 VS Code 配色主题：内置 14 款精选主题并带实时色卡预览，可搜索官方 VS Code 插件市场安装更多主题，一键安装会把任意主题的调色板映射到 DSW… |
 
 ## 壁纸 / 背景
 
@@ -331,6 +364,7 @@ dsh plugin add <owner>/<repo>
 | [dsh-wallpaper](https://github.com/Frog755/dsh-wallpaper) | `@frog755/dsh-wallpaper` | 155 | MIT | Persistent image or MP4 wallpaper for the DSH Web profile: a wallpaper card under Settings -> General selects a local… |
 | [dsh-client-ui-wallpaper](https://github.com/gnk478/dsh-client-ui-wallpaper) | `dsh-client-ui-wallpaper` | 139 | MIT | Local images and videos as the DSH desktop window background: timed rotation with 0.7s cross-fades, first-frame-ready… |
 | [dsh-shunshun-wallpaper](https://github.com/Ddamage/dsh-shunshun-wallpaper) | `dsh-shunshun-wallpaper` | 117 | MIT | Fan-made wallpaper plugin themed on the streamer Zhang Shunfei: full-screen high-definition rotating colorful pegasus… |
+| [pdf-background-gray-codex-skill](https://github.com/zjsthmjialin/pdf-background-gray-codex-skill) | `dsh-pdf-background-gray` | 105 | MIT | 注册 remove-pdf-background-gray 技能：去除扫描 PDF 的灰色/米白底色，保持分辨率、页面几何与抗锯齿文字边缘（无损 Flate 写回），核心为单文件 Python 脚本（pypdf + Pillow +… |
 | [dsh-wallpaper](https://github.com/xiaoxiao44443/dfy-dsh-plugins) | `@dfy-plugins/dsh-wallpaper` | 66 | MIT | DeepSeek Harness 可配置图片壁纸：适应模式、位置、透明度、模糊与颜色遮罩。 |
 | [dsh-live-wallpaper](https://github.com/hinayoung23/dsh-live-wallpaper) | `dsh-live-wallpaper` | 48 | MIT | A dependency-free live wallpaper and theme center for the DeepSeek Harness Web UI. |
 | [wallpaper-engine-dsh](https://github.com/weilv-d/wallpaper-engine-dsh) | `wallpaper-engine-dsh` | 31 | MIT | Wallpaper Engine library as the DSH web GUI background — video/web/still wallpapers, rotation lists, search, resource… |
@@ -363,7 +397,9 @@ dsh plugin add <owner>/<repo>
 | [deepseek-harness-background](https://github.com/HaoyueQin/deepseek-harness-background) | `deepseek-harness-background` | — | MIT | Custom background image for the DSH Web UI: upload a picture or paste an image URL behind the whole app surface, with… |
 | [dsh-wallhaven-wallpaper](https://github.com/HaydenSmith1121/dsh-wallhaven-wallpaper) | `haydensmith1121/dsh-wallhaven-wallpaper` | — | — | Searches wallhaven.cc from a settings page and sets any wallpaper as the DSH web GUI background, with opacity, blur and… |
 | [deepseek-whale-wallpaper](https://github.com/HeShen-1/deepseek-whale-wallpaper) | `dsh-plugin-harness-whale` | — | MIT | Live dot-matrix whale wallpaper for the DSH Web UI: ~1,750 breathing WebGL2 particles with pointer liquid vortices… |
+| [dsh-bg-carousel](https://github.com/Jonah-Wu23/dsh-bg-carousel) | `jonah-wu23/dsh-bg-carousel` | — | — | 把媒体目录中的图片与视频自动轮换为 DSH 界面背景，面板可调轮播间隔与界面透明度。 |
 | [dsh-plugin-media-wallpaper](https://github.com/laoye666-6/dsh-plugin-media-wallpaper) | `dsh-plugin-media-wallpaper` | — | MIT | Image and video wallpapers for the DSH web workspace: auto-detected GIF/APNG/animated WebP/PNG/JPEG/MP4/WebM… |
+| [dsh-background-agents](https://github.com/PerryLink/dsh-background-agents) | `perrylink/dsh-background-agents` | — | — | 官方子代理接缝上的持久化后台子代理：任意会话中启动，Web 侧边栏看进度、随时留言与打断，支持按子代理限定工具、人格与委托深度。 |
 | [dsh-wallpaper-engine](https://github.com/TianYa-DAO/dsh-wallpaper-engine/tree/main/packages/dsh-wallpaper-engine) | `tianya-dao/dsh-wallpaper-engine` | — | — | Wallpaper Engine local library, background layer, native Scene panel, and desktop-mode controls for the DSH desktop… |
 
 ## 桌面宠物 / 吉祥物
@@ -466,8 +502,10 @@ dsh plugin add <owner>/<repo>
 | [pet-whale](https://github.com/nzl153/dsh-pet-whale) | `pet-whale` | — | MIT | 桌宠小鲸鱼：DeepSeek Harness 桌宠插件，桌面端和网页端都能用，随 agent 状态切换动画（官方轮廓版） |
 | [pi-dsh-pet](https://github.com/somwhy/pi-dsh-pet) | `pi-dsh-pet` | — | MIT | Floating desktop deepseek chan for the pi coding agent: idle breathing, random actions, screen wandering, and pi event… |
 | [dsh-desktop-pet](https://github.com/sereinmono/dsh-desktop-pet) | `dsh-desktop-pet` | — | MIT | A plugin that adds a desktop pet to your DeepSeek Harness, supporting the Codex pet format, you can use hatch-pet or… |
+| [dsh-cook-pet](https://github.com/ting-good/dsh-cook-pet) | `ting-good/dsh-cook-pet` | — | — | 桌面宠物「照照」：透明置顶窗悬浮于所有应用之上，镜像 DeepSeek Harness 状态——待机、颠锅、上菜、托腮等你回话，支持点击回应、拖拽、右键调大小，Electron 运行时自动下载。 |
 | totoro-pet | `totoro-pet` | — | MIT | [![Listed on dsh-plugin.org](https://dsh-plugin.org/badges/listed.svg)](https://dsh-plugin.org/plugins/your-owner/your-p… |
 | [xy-deepseek-pet](https://github.com/hexingyuofficial/xy-deepseek-pet) | `xy-deepseek-pet` | — | MIT | Harness adapter bundle for XY DeepSeek Pet |
+| [dsh-kun-like-pet](https://github.com/Yang-wudi/dsh-kun-like-pet) | `kunpet-dsh` | — | MIT | 住在 DSH Web 界面右下角的坤坤桌宠：随 Agent 状态切换动作，任务完成时播放「你干嘛~哎哟」。 |
 | [dsh-pet](https://github.com/ysyyhhh/dsh-pet) | `ysyyhhh/dsh-pet` | — | — | Native desktop pet for DSH that follows agent activity, supports Codex pet packages, and imports approved pets directly… |
 | [dsh-pet](https://github.com/zealot00/dsh-pet) | `zealot00/dsh-pet` | — | — | Desktop pet for the DSH Web UI: sprite-sheet animation, agent state linkage, drag, alarm (daily/one-shot) and pomodoro… |
 
@@ -484,11 +522,13 @@ dsh plugin add <owner>/<repo>
 | @nuonuo26/dsh-video-splash | `@nuonuo26/dsh-video-splash` | 30 | MIT | Video splash for DeepSeek Harness: plays a film over the boot card through the web server index injection table… |
 | dsh-entry-transition | `dsh-entry-transition` | 14 | MIT | One-shot entrance animation for the DSH workspace: logo is written onto the canvas, an inverted color bar sweeps across… |
 | @qlzt/dsh-app-boot | `@qlzt/dsh-app-boot` | — | MIT | Shared boot glue for the app bins: .env loading, fail-loud Loader guards, snapshot-aware config resolution, and the… |
+| [dsh-startup-guard](https://github.com/aokamoaki/dsh-startup-guard) | `aokamoaki/dsh-startup-guard` | — | — | 启动守卫：修复会话日志、预检插件组合、校验客户端工件、冒烟宿主 apply() 并隔离崩溃源，让坏插件再也无法砖掉启动。 |
 | [dsh-boot-doctor](https://github.com/mide69/dsh-boot-doctor) | `dsh-boot-doctor` | — | MIT | DeepSeek Harness plugin: mounts a console log sink and warns about plugins that resolve, validate, and then never… |
 | dsh-cn-boot | `dsh-cn-boot` | — | MIT | China-network bootstrap for DeepSeek Harness (dsh): connectivity probes to npm/GitHub/HuggingFace/mirrors, local proxy… |
 | [dsh-entry-transition](https://github.com/hbgdjb/dsh-entry-transition) | `hbgdjb/dsh-entry-transition` | — | — | One-shot entrance animation when the workspace opens: the logo is written onto the canvas, then an inverted color bar… |
 | [dsh-splash-launcher](https://github.com/Isilsolme/dsh-splash-launcher) | `dsh-splash-launcher` | — | MIT | Windows one-click launcher with a borderless WPF startup animation (stroke-by-stroke HARNESS lettering) that starts dsh… |
 | [dsh-moss-boot](https://github.com/jjt98118-beep/dsh-moss-boot) | `jjt98118-beep/dsh-moss-boot` | — | — | Plays an intro full-frame when you open DSH, when you open a new conversation, or every time you open the one you… |
+| [dsh-startup-command](https://github.com/kagurazakayashi/dsh-startup-command) | `kagurazakayashi/dsh-startup-command` | — | — | 在 dsh web 启动成功后运行用户自定义命令的 DeepSeek Harness Web 插件。 |
 | [DeepSeek-splash-animation](https://github.com/KDDKBD/DeepSeek-splash-animation) | `kddkbd/deepseek-splash-animation` | — | — | Plays a video while DSH opens, then dissolves over 0.3 seconds once it has played out. Ships with a default video so it… |
 | [dsh-startup-animation](https://github.com/KylinQ01/dsh-startup-animation) | `kylinq01/dsh-startup-animation` | — | — | Startup splash for DeepSeek Harness: an animated avatar with aurora, stardust, pointer parallax and a module-assembly… |
 | [dsh-boot-splash](https://github.com/liushuchang-2012/dsh-boot-splash) | `liushuchang-2012/dsh-boot-splash` | — | — | Boot film for the web UI: a blue whale floods black from below as the page loads, then glides left and pulls the \|… |
@@ -496,6 +536,7 @@ dsh plugin add <owner>/<repo>
 | [dsh-boot-animation](https://github.com/mu915275-cmd/dsh-boot-animation) | `mu915275-cmd/dsh-boot-animation` | — | — | Plays an intro full-frame on a new conversation, or every time you open the one you pinned. Four clips ship inside the… |
 | [dsh-boot-animation](https://github.com/NativeDog1/dsh-boot-animation) | `nativedog1/dsh-boot-animation` | — | — | Plays an intro full-frame on a new conversation, or every time you open the one you pinned. Four clips ship inside the… |
 | [dsh-splash-gojo](https://github.com/oumaekumiko0821/dsh-splash-gojo) | `oumaekumiko0821/dsh-splash-gojo` | — | — | Full-screen boot animation for the DSH web client: the boot HTML paints a cover-fit artwork on its first frame, adds a… |
+| [dsh-bootstrap](https://github.com/why-sir/dsh-bootstrap) | `why-sir/dsh-bootstrap` | — | — | DSH 新人引导插件：按八个领域推荐插件（GitHub Star 与 npm 近月下载加权排序），先出计划再一键安装，并可导出／导入记录 profile 插件清单、精确版本与启用状态的环境码。 |
 | [dsh-boot-video](https://github.com/xufu5438-netizen/dsh-boot-video) | `dsh-boot-video` | — | MIT | Full-screen video boot splash — play an mp4 at startup, skip with a click, import your own clip, and non-playable… |
 | [dsh-erii-boot-splash](https://github.com/yanglingrise/dsh-erii-boot-splash) | `yanglingrise/dsh-erii-boot-splash` | — | — | Erii (Sakura) themed boot splash animation — falling sakura petals, a mint monster mascot with a blossom on its head… |
 | [dsh-550c-boot](https://github.com/yannicksong0106/dsh-550c-boot) | `dsh-550c-boot` | — | MIT | Full-screen 550C boot intro for DSH: a 4-second simple cut and a 16-second rewrite sequence, skippable by click or Esc… |
@@ -513,6 +554,7 @@ dsh plugin add <owner>/<repo>
 | [dsh-font-plugin](https://github.com/wtksana/dsh-font-plugin) | `dsh-font-plugin` | — | MIT | DSH dual-face plugin: font family and ligature controls for the Web UI. Host half registers a settings namespace… |
 | dsh-font-ruanio | `dsh-font-ruanio` | — | BSD-3-Clause | 自定义字体生成器（DSH 插件）：上传字体 → 生成字体插件包（@local/dsh-custom-font）→ 注入 @font-face 并重映射 --dsw-font-family（全局生效，热载无需重启）。无外部运行时依赖。 |
 | [dsh-ui-font](https://github.com/yuu1111/dsh-ui-font) | `dsh-ui-font` | — | MIT | DeepSeek Harness Web GUI plugin: set the UI and code font families from Settings → General (--dsw-font-family… |
+| [dsh-anthropic-fonts](https://github.com/Isilsolme/dsh-anthropic-fonts) | `isilsolme/dsh-anthropic-fonts` | — | — | Anthropic Sans/Serif/Mono 字体：界面 Sans、对话 Serif、代码 Mono，中文回退思源字体。 |
 | [dsh-custom-fonts](https://github.com/it-glen/dsh-custom-fonts) | `it-glen/dsh-custom-fonts` | — | — | Fonts and code-font settings for the UI with an English-only glyph scale (100-160%), a -4..+8 px content-size offset… |
 | [dsh-awesome-fonts](https://github.com/kankezhiyan/dsh-awesome-fonts) | `kankezhiyan/dsh-awesome-fonts` | — | — | Font switcher for DeepSeek Harness Web GUI: 99 UI fonts + 31 code fonts with CJK-Latin pairing. |
 | [dsh-font-enhancer](https://github.com/loyalchiiina/dsh-font-enhancer) | `dsh-font-enhancer` | — | MIT | DIY your DSH UI fonts and colors: per-region styling, unified overrides, theme save and switch, random font and color. |
@@ -528,6 +570,7 @@ dsh plugin add <owner>/<repo>
 | [dsh-emoji](https://github.com/hellodigua/dsh-emoji) | `dsh-emoji` | 406 | MIT | Tiny semantic inline emoji for DSH Agent responses |
 | [dsh-ui-settings-icons](https://github.com/suntianc/dsh-ui-settings-icons) | `dsh-ui-settings-icons` | 273 | MIT | Adds custom icons to the DSH Settings sidebar and exposes a keyed `settings.section.icon` slot for third-party settings… |
 | [smooth-cursor](https://github.com/Lacquervii/smooth-cursor) | `dsh-smooth-cursor` | 249 | MIT | Smooth comet-mode animated caret for the DSH Web composer: a glowing comet trail replaces the native blinking caret and… |
+| [dsh-cursor-acp](https://github.com/loeanxi/dsh-cursor-acp) | `dsh-cursor-acp` | 152 | MIT | 将独立任务交给同机已登录的 Cursor 命令行，并提供命令行就绪/代理诊断、子模型设置和只读连通性测试。 |
 | [dsh-realtimeavatar](https://github.com/theinfluencecompany/dsh-realtimeavatar) | `dsh-realtimeavatar` | 104 | MIT | Realtime Avatar (realtimeavatar.ai) for the DeepSeek Harness: the developer's API key held by the harness, the public… |
 | [dsh-cursor-theme](https://github.com/auki-zy/dsh-cursor-theme) | `dsh-cursor-theme` | 65 | MIT | Customize the PC mouse cursor for every UI state inside DeepSeek Harness. 在 DSH 里自定义鼠标各种状态的图案。 |
 | [dsh-avatar](https://github.com/zoyluoblue/deepseek-harness-avatar) | `@zoytown/dsh-avatar` | 18 | MIT | DeepSeek Harness (dsh) plugin for wallpaper theming — upload images from the Settings page, pick one, and the whole dsh… |
@@ -539,6 +582,7 @@ dsh plugin add <owner>/<repo>
 | [dsh-plugin-offpeak-badge](https://github.com/AK-blank/dsh-plugin-offpeak-badge) | `ak-blank/dsh-plugin-offpeak-badge` | — | — | Shows whether the DeepSeek API is currently billing at the off-peak or peak rate in the sidebar brand row, with the… |
 | [dsh-custom-brand](https://github.com/baisama-cloud/dsh-custom-brand) | `baisama-cloud/dsh-custom-brand` | — | — | Customizable brand area for the Web UI: replace the whale logo and DeepSeek wordmark with local images, and edit the… |
 | [dsh-favicon-status](https://github.com/bf185003/dsh-favicon-status) | `bf185003/dsh-favicon-status` | — | — | Browser tab status indicator for dsh web: paints the document favicon from the session list (blue spinning while work… |
+| [dsh-billing-badge](https://github.com/devacc8/dsh-billing-badge) | `devacc8/dsh-billing-badge` | — | — | 在输入框统计行里、缓存命中读数之后显示高峰/非高峰计费时段：状态圆点与切换倒计时，点击展开面板显示按接口返回货币表示的余额，并拆分为总额、赠送与充值。 |
 | [dsh-cursor-dev](https://github.com/dclef/dsh-cursor-dev) | `dsh-cursor-dev` | — | MIT | 把 Cursor CLI 当作子编码智能体来写业务代码：cursor_code 与 cursor_subagent 都提供可从面板点开的实时子对话，原生任务保留宿主的 External 运行记录；可按任务选模型、会话在 DSH… |
 | [dsh-cursor-subscription](https://github.com/orrinzeng/dsh-cursor-subscription) | `dsh-cursor-subscription` | — | MIT | Cursor subscription for DeepSeek Harness with browser login, token refresh, model discovery, and the Cursor Agent chat… |
 | dsh-emoji-wallet | `dsh-emoji-wallet` | — | MIT | DeepSeek balance wallet button for DSH: one click shows your API balance. · DSH 余额小钱包：点一下就看见本猫的小钱包 |
@@ -550,6 +594,7 @@ dsh plugin add <owner>/<repo>
 | [dsh-icon-console](https://github.com/H1Kariiiiiii/dsh-icon-console) | `h1kariiiiiii/dsh-icon-console` | — | — | Icon console for the DSH desktop app: import one icon and apply it to the desktop and Start Menu shortcuts… |
 | [dsh-whale-brand](https://github.com/hiJoeLee/dsh-whale-brand) | `hijoelee/dsh-whale-brand` | — | — | Puts your own animated vector logo over the DSH brand mark in the sidebar and beside the start-page headline, taking… |
 | [dsh-model-provider-badge](https://github.com/huihuangdi/dsh-model-provider-badge) | `huihuangdi/dsh-model-provider-badge` | — | — | Shows the provider behind a session's current model as a compact badge in the DSH Web composer tool row, left of the… |
+| [dsh-workspace-git-badge](https://github.com/Kevin-McIsaac/dsh-workspace-git-badge) | `kevin-mcisaac/dsh-workspace-git-badge` | — | — | DSH 的 Git 状态徽章：侧边栏工作区行徽章与输入行徽章，显示当前会话工作区的 git 状态，通过 SSE 事件驱动保持实时。 |
 | [dsh-web-attention-badge](https://github.com/Luaphes/dsh-web-attention-badge) | `luaphes/dsh-web-attention-badge` | — | — | Attention reminders: frame badge, tab-title count, and a status-colored whale favicon for sessions waiting for input or… |
 | [dsh-tool-emoji](https://github.com/LWLAymh/dsh-tool-emoji) | `lwlaymh/dsh-tool-emoji` | — | — | Replace tool-card leading icons with emoji while preserving the original cards. |
 | [dsh-plugin-brand-custom](https://github.com/lzpway-jpg/dsh-plugin-brand-custom) | `lzpway-jpg/dsh-plugin-brand-custom` | — | — | Custom brand icon and name for the DSH Web sidebar and conversation hero, editable live from a settings card on the… |
@@ -565,6 +610,7 @@ dsh plugin add <owner>/<repo>
 | [dsh-peak-badge](https://github.com/tuoLuoSuan/dsh-peak-badge) | `tuoluosuan/dsh-peak-badge` | — | — | A chip at the left end of the composer tool row showing whether DeepSeek bills at peak or off-peak right now. Clicking… |
 | [dsh-web-icon-indicator](https://github.com/waknow/dsh-web-icon-indicator) | `dsh-web-icon-indicator` | — | MIT | Browser tab favicon mirrors the DSH session state (idle / running / asking / done), recolored and animated from one… |
 | [dsh-sidebar-icon-row](https://github.com/watershow666/dsh-sidebar-icon-row) | `watershow666/dsh-sidebar-icon-row` | — | — | Turns the DeepSeek Harness sidebar panel entries and footer entries into one row of icon-only squares with hover names… |
+| [dsh-tide-badge](https://github.com/xiangrikuibaize/dsh-tide-badge) | `xiangrikuibaize/dsh-tide-badge` | — | — | DSH 输入框下方的计费时段与余额药丸：常显账户余额与本次对话花费，并显示峰价/谷价档位与距下次切换的倒计时。峰谷判定含中国法定节假日与周末；本次对话花费按余额差值记账，采样点是插件自带的「对话停止满一分钟后刷新余额」。 |
 | [dsh-coros-badge](https://github.com/ZhangBo-cmd/dsh-coros-badge) | `zhangbo-cmd/dsh-coros-badge` | — | — | Shows the linked COROS watch model and cumulative activity days in the Web UI, expanding to a one-line review and… |
 | [dsh-pricing-badge](https://github.com/ZhangBo-cmd/dsh-pricing-badge) | `zhangbo-cmd/dsh-pricing-badge` | — | — | Shows the DeepSeek API peak and off-peak hours, the current model's output price and the account balance in the Web UI. |
 
@@ -578,7 +624,11 @@ dsh plugin add <owner>/<repo>
 | [dsh-boo550wt-animation](https://github.com/456erddgr/dsh-boo550wt-animation) | `456erddgr/dsh-boo550wt-animation` | — | — | Plays a full-screen video while DeepSeek Harness starts and reveals the UI only after it ends. Esc skips it. |
 | [dsh-cyber-particle](https://github.com/AKS1st/dsh-cyber-particle) | `aks1st/dsh-cyber-particle` | — | — | Particle-network background overlay for the DSH Web shell: full-screen, click-through, zero runtime dependencies. |
 | [dsh-reduce-effects](https://github.com/azazo1/dsh-reduce-effects) | `azazo1/dsh-reduce-effects` | — | — | Adds a UI effects page to Settings that switches off DSH Web animations and transitions, loading and progress… |
+| [dsh-whale-particles-bg](https://github.com/kviiinh/dsh-whale-particles-bg) | `kviiinh/dsh-whale-particles-bg` | — | — | 为 DSH Web 界面加的一层动态鲸鱼背景：由鲸鱼剪影采样出的粒子场，加上一层点阵网格，两者都是挂在 shell.overlay 上的全屏点击穿透… |
 | [dsh-whale-animation](https://github.com/LeemanCheung/dsh-whale-animation) | `leemancheung/dsh-whale-animation` | — | — | A 60-frame theme-aware monochrome whale-dive animation with reactive water for the DSH Web turn status: embedded… |
+| [dsh-read-animation](https://github.com/NeoHotaru/dsh-read-animation) | `neohotaru/dsh-read-animation` | — | — | 把 gif 和动图 webp 当作动画来读：贴进聊天框的照常播放，模型收到的是横跨整段采样、带帧号与时长的胶片条；工作区里的文件由 read_animation 按需采样。 |
+| [dsh-all-usage](https://github.com/ParticleLight/dsh-all-usage) | `particlelight/dsh-all-usage` | — | — | 支持跨多个模型、供应商、工作区与时间范围进行统一分析，并可在全部保留历史中自定义起止日期；实时呈现缓存命中率，并可分别查看模型和供应商的分类数据；单日趋势按小时、跨日趋势按日，提供 53 周 GitHub… |
+| [dsh-browser-plus](https://github.com/ParticleLight/dsh-browser-plus) | `dsh-browser-plus` | — | MIT | 面向 DSH 的可见 Electron 浏览器：共享一个 BrowserWindow，提供隔离任务视图、显式人机交接、快照引用与原生导航工具、操作轨迹、按需页面缩略图、可靠标签页切换与关闭的 keyed session… |
 
 ## 数据来源
 

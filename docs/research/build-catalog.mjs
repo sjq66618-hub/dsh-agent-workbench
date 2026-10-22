@@ -11,6 +11,8 @@ const outPath = process.argv.includes('--out')
 
 const awesome = JSON.parse(readFileSync(join(HERE, 'awesome-parsed.json'), 'utf8'));
 const npm = JSON.parse(readFileSync(join(HERE, 'decorations-raw.json'), 'utf8'));
+let catalog = null;
+try { catalog = JSON.parse(readFileSync(join(HERE, 'catalog-decor.json'), 'utf8')); } catch { /* 可选 */ }
 
 const NAME_RULES = [
   ['pet', /(?<![a-z])(pets?|mascot|live2d|chibi|buddy|companion)(?![a-z])|desk-?pet|桌宠|宠物|吉祥物/i],
@@ -125,6 +127,36 @@ for (const r of rows) {
   if (!prev || score(r) > score(prev)) byRepo.set(r.repoKey, r);
 }
 const finalRows = [...byRepo.values(), ...noRepo];
+
+// --- 官方索引补充：catalog 里有、前面两路没收到的条目 ---
+if (catalog?.rows?.length) {
+  const seenRepos = new Set(finalRows.map((r) => r.repoKey).filter(Boolean));
+  const seenPkgs = new Set(finalRows.map((r) => r.pkg?.name).filter(Boolean));
+  const seenNames = new Set(finalRows.map((r) => r.title.toLowerCase()));
+  let added = 0;
+  for (const c of catalog.rows) {
+    const key = repoKey(c.repo);
+    if (key && seenRepos.has(key.toLowerCase())) continue;
+    if (c.name && seenPkgs.has(c.name)) continue;
+    if (seenNames.has(c.title.toLowerCase())) continue;
+    const pkgMatch = npmAll.find((p) => p.name === c.name) || null;
+    finalRows.push({
+      title: c.title,
+      repo: c.repo || (key ? `https://github.com/${key}` : ''),
+      repoKey: key,
+      desc: c.descZh || c.descEn || '',
+      section: 'catalog',
+      primary: c.primary || 'theme',
+      tags: [c.primary || 'theme'],
+      pkg: pkgMatch,
+    });
+    if (key) seenRepos.add(key.toLowerCase());
+    if (c.name) seenPkgs.add(c.name);
+    seenNames.add(c.title.toLowerCase());
+    added++;
+  }
+  console.log(`[catalog] added ${added} entries not covered by npm/awesome`);
+}
 
 // --- 按类别分组，组内按下载量降序、无下载量的按名称 ---
 const groups = Object.fromEntries(ORDER.map((t) => [t, []]));

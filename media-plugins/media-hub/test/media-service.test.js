@@ -29,6 +29,22 @@ for (const [flag, id, other] of [
   });
 }
 
+test('operationsEnabled requires both a ready provider and musicEnabled', () => {
+  const readyProvider = { available: true, accountState: 'authorized' };
+  const enabledStatus = createMediaService({ musicProvider: readyProvider, musicEnabled: true }).status();
+  assert.equal(enabledStatus.providers[0].state, 'ready');
+  assert.equal(enabledStatus.operationsEnabled, true);
+
+  const disabledStatus = createMediaService({ musicProvider: readyProvider, musicEnabled: false }).status();
+  assert.equal(disabledStatus.providers[0].state, 'disabled');
+  assert.equal(disabledStatus.providers[0].accountState, 'not_checked');
+  assert.equal(disabledStatus.operationsEnabled, false);
+
+  const unavailableStatus = createMediaService({ musicEnabled: true }).status();
+  assert.equal(unavailableStatus.providers[0].state, 'unavailable');
+  assert.equal(unavailableStatus.operationsEnabled, false);
+});
+
 test('returned data and caller config cannot mutate service state', () => {
   const config = { musicEnabled: true };
   const service = createMediaService(config);
