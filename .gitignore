@@ -30,6 +30,11 @@ _dev/
 # ---------- 调研中间数据（脚本可重新生成，不进仓库） ----------
 docs/research/*-raw.json
 docs/research/awesome-parsed.json
+docs/research/previews.json
+
+# ---------- 抓取的三方参考文档与执行记录（待人工筛选后再决定是否公开） ----------
+docs/research/refs/
+docs/reviews/
 
 # ---------- 日志 ----------
 *.log

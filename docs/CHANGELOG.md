@@ -4,6 +4,13 @@
 
 ## [Unreleased]
 
+### 新增（画廊）
+
+- `docs/gallery.html` — 1210 个装饰插件的画廊页：单文件、可搜索、按类别筛选、一键复制安装命令、深浅色跟随系统。
+- `docs/gallery.md` — 709 个有真实截图的精选版，每类 12 个，GitHub 上直接显示缩略图。
+- `docs/research/fetch-previews.mjs` — 抓各仓库 README、挑首张非 badge 预览图（过滤 shields.io 一类），无图的退回 GitHub 仓库卡片。
+- `docs/research/build-gallery.mjs` — 生成上面两个文件，数据内联，图片走远程直链不占仓库体积。
+
 ### 新增
 
 - `docs/decorations.md` — DSH 装饰插件合集，1299 条，按皮肤 / 主题 / 壁纸 / 桌面宠物 / 启动动画 / 字体 / 图标 / 动效分 8 类，每条附 npm 包名、周下载量、许可证与一行说明。
