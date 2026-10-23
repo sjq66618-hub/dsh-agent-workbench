@@ -1,9 +1,11 @@
 # DSH 装饰画廊 · 带预览图
 
 > 从 1210 个装饰插件里挑出有真实截图的一批，每类 12 个。
-> 完整版（1210 个，可搜索、可筛选）见 [gallery.html](gallery.html)，下载后用浏览器打开。
+> 完整版（1210 个，可搜索、可筛选）见 [gallery.html](gallery.html)，或直接开在线版：<https://sjq66618-hub.github.io/dsh-agent-workbench/gallery.html>
 
 图片直链自各仓库 README。共 709 个插件提供了截图。
+
+> 画廊只覆盖有 GitHub 仓库的 1210 个。[decorations.md](decorations.md) 里另有约 90 个只发布在 npm 上、没有仓库可抓图，只能看文字说明。
 
 ## 皮肤 / 换肤
 

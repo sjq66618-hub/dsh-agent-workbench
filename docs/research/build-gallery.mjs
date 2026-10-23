@@ -259,9 +259,11 @@ const md = [];
 md.push('# DSH 装饰画廊 · 带预览图');
 md.push('');
 md.push(`> 从 ${data.total} 个装饰插件里挑出有真实截图的一批，每类 ${PER_CAT} 个。`);
-md.push(`> 完整版（${data.total} 个，可搜索、可筛选）见 [gallery.html](gallery.html)，下载后用浏览器打开。`);
+md.push(`> 完整版（${data.total} 个，可搜索、可筛选）见 [gallery.html](gallery.html)，或直接开在线版：<https://sjq66618-hub.github.io/dsh-agent-workbench/gallery.html>`);
 md.push('');
 md.push(`图片直链自各仓库 README。共 ${withImg.length} 个插件提供了截图。`);
+md.push('');
+md.push(`> 画廊只覆盖有 GitHub 仓库的 ${data.total} 个。[decorations.md](decorations.md) 里另有约 90 个只发布在 npm 上、没有仓库可抓图，只能看文字说明。`);
 md.push('');
 
 for (const [key, label] of CATS) {
