@@ -9,11 +9,13 @@ jobs:
   syntax-and-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22'
+          cache: npm
+          cache-dependency-path: media-plugins/media-hub/package-lock.json
 
       - name: Syntax check
         run: |
@@ -24,7 +26,23 @@ jobs:
           node --check media-plugins/media-hub/index.js
           node --check media-plugins/media-hub/client.js
           node --check media-plugins/media-hub/src/host/media-service.js
+          node --check media-plugins/media-hub/src/host/music-service.js
+          node --check media-plugins/media-hub/src/host/netdisk-service.js
+          node --check media-plugins/media-hub/src/host/netdisk-route.js
           node --check media-plugins/media-hub/src/host/status-tool.js
+          node --check media-plugins/media-hub/src/providers/qq-music-provider.js
+          node --check media-plugins/media-hub/src/providers/qq-music-worker.js
+          node --check media-plugins/media-hub/src/providers/qq-music-network.js
+          node --check media-plugins/media-hub/src/providers/qq-music-login.js
+          node --check media-plugins/media-hub/src/providers/qq-music-codec.js
+          node --check media-plugins/media-hub/src/providers/qq-music-library-codec.js
+          node --check media-plugins/media-hub/src/providers/qq-music-errors.js
+          node --check media-plugins/media-hub/src/providers/baidu-netdisk-provider.js
+          node --check media-plugins/media-hub/src/providers/baidu-netdisk-codec.js
+
+      - name: Install media-hub deps
+        working-directory: media-plugins/media-hub
+        run: npm ci --no-audit --no-fund
 
       - name: Unit tests (media-hub)
         working-directory: media-plugins/media-hub
@@ -32,5 +50,8 @@ jobs:
 
       - name: Guard against committed secrets
         run: |
-          ! git grep -n -I -E 'gho_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9]{20,}' -- . \
-            || (echo "possible credential committed" && exit 1)
+          if git grep -n -I -E 'gho_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9]{20,}' -- . ; then
+            echo "possible credential committed"
+            exit 1
+          fi
+          echo "no credential patterns found"
