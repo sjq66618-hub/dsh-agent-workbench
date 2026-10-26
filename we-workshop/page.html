@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WE 工坊</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 14px;
+    background: #0b0d12; color: #e7ecf5;
+    font: 13px/1.5 "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+  }
+  .bar { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+  input[type=search] {
+    flex: 1; min-width: 0; padding: 9px 12px; border-radius: 9px;
+    border: 1px solid #263041; background: #11151d; color: #e7ecf5; outline: none;
+  }
+  input[type=search]:focus { border-color: #4f8cff; }
+  button {
+    padding: 9px 14px; border-radius: 9px; border: 1px solid #2b3a55;
+    background: #162031; color: #dbe6f7; cursor: pointer; white-space: nowrap;
+  }
+  button:hover { background: #1d2b42; }
+  button.primary { background: #2f6fe4; border-color: #2f6fe4; color: #fff; }
+  button.primary:hover { background: #3b7bf0; }
+  .status { color: #8fa0b8; margin: 6px 2px 10px; min-height: 18px; }
+  .status.err { color: #ff8c8c; }
+  .grid {
+    display: grid; gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  }
+  .card {
+    background: #121722; border: 1px solid #1f2937; border-radius: 11px;
+    overflow: hidden; display: flex; flex-direction: column;
+  }
+  .card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; background: #0a0d13; display: block; }
+  .card .body { padding: 9px 10px 10px; display: flex; flex-direction: column; gap: 6px; }
+  .card .title { font-weight: 600; font-size: 12.5px; line-height: 1.35; max-height: 2.7em; overflow: hidden; }
+  .card .meta { color: #7f90a8; font-size: 11px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .card .actions { display: flex; gap: 6px; margin-top: 2px; }
+  .card .actions button { flex: 1; padding: 7px 8px; font-size: 12px; }
+  .badge {
+    display: inline-block; padding: 1px 7px; border-radius: 999px;
+    background: #16351f; color: #7fe0a1; border: 1px solid #1f5230; font-size: 10.5px;
+  }
+  .empty { color: #7f90a8; padding: 24px; text-align: center; grid-column: 1 / -1; }
+  .more-row { display: flex; justify-content: center; margin: 14px 0 4px; }
+  .more-row button { min-width: 180px; }
+  .more-row[hidden] { display: none; }
+</style>
+</head>
+<body>
+  <form class="bar" id="searchForm">
+    <input id="q" type="search" placeholder="搜索 Wallpaper Engine 工坊（例如 frieren、cyberpunk、4k）" autocomplete="off" />
+    <button class="primary" type="submit">搜索</button>
+    <button type="button" id="refresh">刷新本地库</button>
+  </form>
+  <div class="status" id="status">正在读取本地壁纸库…</div>
+  <div class="grid" id="grid"></div>
+  <div class="more-row" id="moreRow" hidden><button type="button" id="more">加载更多</button></div>
+
+<script>
+const q = document.getElementById('q');
+const statusEl = document.getElementById('status');
+const grid = document.getElementById('grid');
+const moreRow = document.getElementById('moreRow');
+const moreButton = document.getElementById('more');
+let installed = new Set();
+let page = 1;
+let lastQuery = null;
+let loading = false;
+
+function setStatus(text, isErr) {
+  statusEl.textContent = text;
+  statusEl.className = 'status' + (isErr ? ' err' : '');
+}
+
+function fmtSize(bytes) {
+  if (!bytes) return '';
+  const mb = bytes / 1024 / 1024;
+  return mb >= 1024 ? (mb / 1024).toFixed(1) + ' GB' : mb.toFixed(1) + ' MB';
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+async function loadLibrary() {
+  try {
+    const res = await fetch('/we-workshop/api/library');
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
+    installed = new Set((data.items || []).map((item) => item.id));
+    setStatus('本地库：' + data.count + ' 张（' + data.dir + '）');
+  } catch (err) {
+    setStatus('本地库读取失败：' + err.message, true);
+  }
+}
+
+function cardHtml(item) {
+  const isInstalled = installed.has(item.id) || item.installed;
+  const preview = item.preview ? '/we-workshop/api/img?u=' + encodeURIComponent(item.preview) : '';
+  return '<div class="card">' +
+    (preview ? '<img loading="lazy" src="' + preview + '" alt="" onerror="this.style.display=\'none\'" />' : '') +
+    '<div class="body">' +
+      '<div class="title">' + escapeHtml(item.title) + '</div>' +
+      '<div class="meta"><span>' + fmtSize(item.size) + '</span><span>订阅 ' + item.subscriptions + '</span>' +
+        (isInstalled ? '<span class="badge">已下载</span>' : '') + '</div>' +
+      '<div class="actions">' +
+        '<button data-open="' + item.id + '">在 Steam 订阅</button>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function appendResults(results) {
+  if (!results.length) return;
+  const html = results.map(cardHtml).join('');
+  const empty = grid.querySelector('.empty');
+  if (empty) empty.remove();
+  grid.insertAdjacentHTML('beforeend', html);
+}
+
+async function search(reset) {
+  if (loading) return;
+  const text = q.value.trim();
+  if (reset) {
+    page = 1;
+    lastQuery = text;
+    grid.innerHTML = '';
+  }
+  loading = true;
+  moreRow.hidden = true;
+  setStatus((reset ? (text ? '正在搜索「' + text + '」…' : '正在读取热门壁纸…') : '正在加载第 ' + page + ' 页…'));
+  try {
+    const res = await fetch('/we-workshop/api/search?q=' + encodeURIComponent(text) + '&page=' + page);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
+    appendResults(data.results || []);
+    if (!(data.results || []).length && page === 1) {
+      grid.innerHTML = '<div class="empty">没有结果。换个关键词试试，或先确认代理/Steam 可访问。</div>';
+    }
+    moreRow.hidden = !data.hasMore;
+    setStatus('第 ' + page + ' 页，本页 ' + (data.results || []).length + ' 个结果。点“在 Steam 订阅”会打开 Steam 客户端；下载完成后点“刷新本地库”。');
+    if (data.hasMore) page += 1;
+  } catch (err) {
+    setStatus('搜索失败：' + err.message + '（需要本机代理可访问 Steam）', true);
+  } finally {
+    loading = false;
+  }
+}
+
+document.getElementById('searchForm').addEventListener('submit', (event) => {
+  event.preventDefault();
+  search(true);
+});
+
+document.getElementById('refresh').addEventListener('click', loadLibrary);
+moreButton.addEventListener('click', () => search(false));
+
+grid.addEventListener('click', (event) => {
+  const button = event.target.closest('button[data-open]');
+  if (!button) return;
+  const id = button.getAttribute('data-open');
+  const url = 'steam://url/CommunityFilePage/' + id;
+  const win = window.open(url, '_blank');
+  if (!win) window.location.href = url;
+  setStatus('已请求 Steam 打开作品 ' + id + '，在 Steam 里点“订阅”即可下载。');
+});
+
+loadLibrary().then(() => search(true));
+</script>
+</body>
+</html>

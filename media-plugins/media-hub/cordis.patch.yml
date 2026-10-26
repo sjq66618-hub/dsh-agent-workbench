@@ -1,0 +1,6 @@
+- insert:
+    - id: media-hub
+      name: '@local/dsh-media-hub'
+      config:
+        musicBackend: qqmusic
+        netdiskBackend: baidu

@@ -1,0 +1,77 @@
+# ============================================================
+# 只收录「原创 + 可公开」的内容。
+# 排除项：本机私有资产、开发过程记录、第三方部署、抓取资料、大体积二进制。
+# ============================================================
+
+# ---------- 第三方部署 / 依赖 ----------
+SillyTavern/
+node_modules/
+/package.json
+/package-lock.json
+
+# ---------- 抓取的三方资料（版权 + 体积） ----------
+_research2/
+
+# ---------- 个人素材 ----------
+_previews/
+_pw_test.png
+100yuan/
+*.zip
+
+# ---------- 独立游戏项目 ----------
+snowbound/
+snowbound_*.zip
+雪灯_v*.zip
+游戏立项调研_2026-10.md
+
+# ---------- 分析案例：只保留模板，实际案例不进仓库 ----------
+cases/*
+!cases/SAMPLE/
+!cases/SAMPLE/**
+
+# ---------- 本机运行环境（大体积 / 私有） ----------
+personal-workstation/
+koboldcpp/
+models/
+tmp/
+.dsh-acl-report
+tavern-*.bat
+tavern-*.ps1
+酒馆新手教学.md
+
+# ---------- 临时开发 ----------
+_dev/
+
+# ---------- 开发过程 / 计划 / 交接（不公开） ----------
+docs/DSH-personal-ai-plan-*.md
+docs/DSH-GPT6.1-sol-EXECUTION.md
+docs/DSH-SUPER-WORKSTATION-HANDOFF-*.md
+docs/DSH-ecosystem-2026-10.v1.md
+docs/reviews/
+
+# ---------- 调研中间数据（脚本可重新生成） ----------
+docs/research/*-raw.json
+docs/research/awesome-parsed.json
+docs/research/previews.json
+docs/research/refs/
+
+# ---------- 日志 ----------
+*.log
+
+# ---------- 编辑器 / 备份 / 系统 ----------
+*.bak
+*.bak-*
+*.before.*
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- 本机安装产物与凭据 ----------
+dist/
+out/
+.env
+.env.*
+*.local.yml
+cordis.patch.local.yml

@@ -1,0 +1,36 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  syntax-and-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Syntax check
+        run: |
+          node --check we-workshop/index.js
+          node --check we-workshop/client.js
+          node --check codex-bridge/mcp-codex-server.mjs
+          node --check codex-bridge/selftest.mjs
+          node --check media-plugins/media-hub/index.js
+          node --check media-plugins/media-hub/client.js
+          node --check media-plugins/media-hub/src/host/media-service.js
+          node --check media-plugins/media-hub/src/host/status-tool.js
+
+      - name: Unit tests (media-hub)
+        working-directory: media-plugins/media-hub
+        run: node --test
+
+      - name: Guard against committed secrets
+        run: |
+          ! git grep -n -I -E 'gho_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9]{20,}' -- . \
+            || (echo "possible credential committed" && exit 1)

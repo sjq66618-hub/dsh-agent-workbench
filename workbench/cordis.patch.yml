@@ -1,0 +1,527 @@
+# 工坊（Workbench）预设包：1 个主控 + 4 个专职子代理。
+#
+# 安装：plugin_manager install_bundle，target 指向本目录。
+# 切换：Web UI 的 Agent 选择器里选「工坊 · 主控」等。
+# 回滚：plugin_manager remove_bundle @local/dsh-workbench。
+#
+# 设计参考：BMAD-METHOD 的角色分工、Claude Code subagents 的职责边界、
+# Agent Skills 的渐进披露、agency-swarm 的编排/委派分层。
+- insert:
+    # ------------------------------------------------------------------
+    # 主控：路由、规划、验收、跨会话记忆
+    # ------------------------------------------------------------------
+    - id: preset-wb-main
+      name: '@deepseek-ai/dsh-agent-preset'
+      config:
+        id: wb-main
+        name: 工坊 · 主控
+        description: 调度 4 个专职子代理的个人工作台主控：路由、规划、验收、长期记忆。
+        order: 10
+        plugins:
+          - id: persona
+            name: '@deepseek-ai/dsh-persona'
+            config:
+              prefix: |
+                你是「工坊主控」，用户在本机的长期协作代理。用户中文母语，默认用中文、短句、先结论。
+
+                ## 编制
+                你有 4 个专职子代理，用 subagent 工具的 agent_preset 选择：
+                - wb-builder：实现工程师。写代码、改 Bug、跑测试、交付最小 diff。
+                - wb-auditor：只读审计员。安全/质量/依赖审查，证据优先，不改文件。
+                - wb-scribe：写作者。中文长文、报告、文档、对外文案。
+                - wb-gamedev：游戏工程师。玩法循环、前端、资源管线、打包。
+
+                ## 路由
+                - 单一领域且工作量超过 10 分钟：派对应子代理。brief 必须自包含：目标、约束、相关文件、验收标准。
+                - 跨领域：先拆成 2-4 个独立子任务，能并行的同时派，你负责合并与验收。
+                - 小改动（10 分钟内）自己做，不为用子代理而用。
+                - 全局决策、用户偏好、破坏性操作：你自己处理，不下放。
+
+                ## 纪律
+                1. 先读后改：动文件前先 read；搜索用 grep/glob；不凭记忆改代码。
+                2. 事实优先：结论要能指到 文件:行 或命令输出；没验证就写「未验证」。
+                3. 大改先规划：用 todo_write 拆步骤；方案有分叉时用 plan mode。
+                4. 安全与授权条款无条件遵守；交付风格按工作区 AGENTS.md；遇到只能由用户决定的选择（范围、风格、删不删、发给谁），问一个最小问题后继续，其余取默认值并标注假设。
+                5. 上下文经济：大文件分段读；子代理 brief 给全必要信息，不让子代理反问。
+                6. 交付：先给产物（代码/文件/结论），再给必要说明；结尾一行「当前/结果/下一步」。
+                7. 不伪造执行：没跑的命令不写「已通过」。
+
+                ## 工具习惯
+                - 长任务用 job_*，定时用 schedule_*，交付文件用 present。
+                - REPL、调试器、需要保持状态的交互式命令用 terminal_*；一次性命令仍用 pwsh，不为用工具而用。
+                - 并行改多个分支用 worktree 开独立工作树，不要在主工作区来回切。
+                - 第三方库文档先看 mcp__context7__ 工具，GitHub 仓库问答看 mcp__deepwiki__；MCP 不可用时退回 web_search + web_fetch。
+                - 查历史工作用 session_search / session_trace，不要重复问用户。
+                - 外部资料先 web_search，再 web_fetch 原文。
+          - id: agent-instructions
+            name: '@deepseek-ai/dsh-agent-instructions'
+            config:
+              maxBytes: 65536
+          - id: time-context
+            name: '@deepseek-ai/dsh-time-context'
+          - id: tool-pwsh
+            name: '@deepseek-ai/dsh-tool-pwsh'
+            disabled: !!js process.platform !== 'win32'
+          - id: tool-fs
+            name: '@deepseek-ai/dsh-tool-fs'
+          - id: tool-fs-search
+            name: '@deepseek-ai/dsh-tool-fs-search'
+            config:
+              sampleOverCapGlobResults: false
+          - id: tool-jobs
+            name: '@deepseek-ai/dsh-tool-jobs'
+          - id: tool-schedule
+            name: '@deepseek-ai/dsh-tool-schedule'
+          - id: skill-filesystem
+            name: '@deepseek-ai/dsh-skill-filesystem'
+          - id: tool-skill
+            name: '@deepseek-ai/dsh-tool-skill'
+          - id: tool-todo
+            name: '@deepseek-ai/dsh-tool-todo'
+            config:
+              allowParallelInProgress: true
+          - id: tool-ask-user
+            name: '@deepseek-ai/dsh-tool-ask-user'
+          - id: tool-web
+            name: '@deepseek-ai/dsh-tool-web'
+            config:
+              fetch: true
+              searchTimeoutMs: 60000
+          - id: present
+            name: '@deepseek-ai/dsh-tool-present'
+          # 持久终端：跨工具调用保留 shell 状态，适合 REPL / 调试器 / 交互式命令
+          - id: terminal
+            name: cordis:group
+            group: true
+            isolate:
+              terminals: true
+            config:
+              - id: terminal-registry
+                name: '@deepseek-ai/dsh-terminal'
+              - id: terminal-bash
+                name: '@deepseek-ai/dsh-terminal-bash'
+                disabled: !!js process.platform === 'win32'
+              - id: terminal-pwsh
+                name: '@deepseek-ai/dsh-terminal-bash'
+                disabled: !!js process.platform !== 'win32'
+                config:
+                  shellDialect: pwsh
+              - id: tool-terminal
+                name: '@deepseek-ai/dsh-tool-terminal'
+                config:
+                  maxResultBytes: 262144
+          # Git 工作树：并行改多个分支而不互相污染
+          - id: worktree-group
+            name: cordis:group
+            group: true
+            isolate:
+              worktrees: true
+            config:
+              - id: worktree
+                name: '@deepseek-ai/dsh-experimental-worktree'
+              - id: tool-worktree
+                name: '@deepseek-ai/dsh-experimental-tool-worktree'
+          # MCP：第三方库文档（context7）与仓库问答（deepwiki）
+          - id: mcp-context7
+            name: '@deepseek-ai/dsh-mcp-client'
+            config:
+              serverName: context7
+              transport: stdio
+              command: cmd
+              args:
+                - /c
+                - npx
+                - '-y'
+                - '@upstash/context7-mcp@latest'
+              toolCallTimeoutMs: 60000
+          - id: mcp-deepwiki
+            name: '@deepseek-ai/dsh-mcp-client'
+            config:
+              serverName: deepwiki
+              transport: streamable-http
+              url: https://mcp.deepwiki.com/mcp
+              toolCallTimeoutMs: 60000
+          - id: mcp-playwright
+            name: '@deepseek-ai/dsh-mcp-client'
+            config:
+              serverName: playwright
+              transport: stdio
+              command: cmd
+              args:
+                - /c
+                - npx
+                - '-y'
+                - '@playwright/mcp@latest'
+                - '--headless'
+              toolCallTimeoutMs: 120000
+          - id: mcp-qqmusic
+            name: '@deepseek-ai/dsh-mcp-client'
+            config:
+              serverName: qqmusic
+              transport: stdio
+              command: cmd
+              args:
+                - /c
+                - npx
+                - '-y'
+                - '@sansenjian/qq-music-api-mcp@2.6.0'
+              toolCallTimeoutMs: 120000
+          # Codex 桥接：把本机 codex CLI 暴露成 mcp__codex__codex_exec
+          # 路径按你的克隆位置改。相对路径在 MCP 子进程里不一定能解析，
+          # 起不来就把 args 换成绝对路径。
+          - id: mcp-codex
+            name: '@deepseek-ai/dsh-mcp-client'
+            config:
+              serverName: codex
+              transport: stdio
+              command: node
+              args:
+                - './codex-bridge/mcp-codex-server.mjs'
+              toolCallTimeoutMs: 900000
+          - id: tool-session-query
+            name: '@deepseek-ai/dsh-tool-session-query'
+            config:
+              maxSearchResults: 100
+              searchTimeoutMs: 30000
+          - id: command-goal
+            name: '@deepseek-ai/dsh-command-goal'
+          - id: tool-goal
+            name: '@deepseek-ai/dsh-tool-goal'
+          - id: planning
+            name: cordis:group
+            group: true
+            isolate:
+              planMode: true
+            config:
+              - id: plan-mode
+                name: '@deepseek-ai/dsh-plan-mode'
+                config:
+                  section: |
+                    You are in plan mode. Explore and design before presenting the complete plan through exit_plan_mode. Do not edit or write files, change configuration, run formatters or code generation that rewrites tracked files, commit, or otherwise carry out the plan; use reads, searches, static analysis, and checks to ground the plan in the actual repository.
+
+                    Imperative language to implement changes means plan the implementation, not execute it. A conversational agreement — including an answer confirming something you asked — approves nothing and does not end plan mode; fold the confirmed decision into the plan and submit it through exit_plan_mode.
+
+                    Resolve discoverable facts by inspection. Use ask_user_question only for user-owned choices or material ambiguity that inspection cannot answer. Make the plan decision-complete: goal and acceptance criteria, changes grouped by subsystem, public API and data-flow impact, edge cases, failure modes, tests, and explicit assumptions. When ready, call exit_plan_mode with the complete plan markdown starting with a # heading, as the only and final tool call in that response.
+          - id: delegation
+            name: cordis:group
+            group: true
+            isolate:
+              workflowEngine: true
+            config:
+              - id: tool-subagent-control
+                name: '@deepseek-ai/dsh-tool-subagent-control'
+              - id: tool-subagent-list-agents
+                name: '@deepseek-ai/dsh-tool-subagent-control/list-agents'
+              - id: tool-subagent
+                name: '@deepseek-ai/dsh-tool-subagent'
+                config:
+                  provider: spawn
+                  toolName: subagent
+                  agentPreset: wb-builder
+                  allowedAgentPresets:
+                    - wb-builder
+                    - wb-auditor
+                    - wb-scribe
+                    - wb-gamedev
+              - id: tool-subagent-fork
+                name: '@deepseek-ai/dsh-tool-subagent'
+                config:
+                  provider: fork
+                  toolName: subagent_fork
+              - id: workflow-ptc
+                name: '@deepseek-ai/dsh-workflow-ptc'
+                config:
+                  provider: spawn
+              - id: tool-workflow
+                name: '@deepseek-ai/dsh-tool-workflow'
+          - id: compaction
+            name: cordis:group
+            group: true
+            isolate:
+              compaction: true
+              toolResultPruner: true
+            config:
+              - id: compaction-basic
+                name: '@deepseek-ai/dsh-compaction-basic'
+              - id: command-compact
+                name: '@deepseek-ai/dsh-command-compact'
+              - id: tool-result-pruner
+                name: '@deepseek-ai/dsh-compaction-tool-result-pruner'
+                config:
+                  thresholdChars: 8192
+                  headChars: 4096
+                  tailChars: 1024
+
+    # ------------------------------------------------------------------
+    # 实现工程师
+    # ------------------------------------------------------------------
+    - id: preset-wb-builder
+      name: '@deepseek-ai/dsh-agent-preset'
+      config:
+        id: wb-builder
+        name: 工坊 · 实现
+        description: 实现工程师：读代码、写最小 diff、跑真实验证。
+        order: 11
+        plugins:
+          - id: persona
+            name: '@deepseek-ai/dsh-persona'
+            config:
+              prefix: |
+                你是「工坊 · 实现」，负责把需求变成可运行、可验证的代码改动。
+
+                ## 纪律
+                - 先读后改：改任何文件前先 read 目标文件与相邻实现；遵循仓库现有模式与命名。
+                - 最小 diff：只改完成任务必需的代码；不顺手重构、不改风格、不动无关文件。
+                - 需求缺口：取合理默认并在交付里标注「假设」，不要停下来反问。
+                - 验证：改完必须跑最相关的检查（测试/构建/lint/最小复现）；跑不了就说明原因。
+                - 交付：改动文件清单（含行号）、关键 diff 说明、验证命令与真实输出、剩余风险。
+                - 不伪造：没执行的验证写「未验证」。
+
+                ## 输出
+                先给结果（改了什么、为什么），再给证据（命令与输出），最后一行「当前/结果/下一步」。
+          - id: time-context
+            name: '@deepseek-ai/dsh-time-context'
+          - id: tool-pwsh
+            name: '@deepseek-ai/dsh-tool-pwsh'
+            disabled: !!js process.platform !== 'win32'
+          - id: tool-fs
+            name: '@deepseek-ai/dsh-tool-fs'
+          - id: tool-fs-search
+            name: '@deepseek-ai/dsh-tool-fs-search'
+            config:
+              sampleOverCapGlobResults: false
+          - id: tool-jobs
+            name: '@deepseek-ai/dsh-tool-jobs'
+          - id: skill-filesystem
+            name: '@deepseek-ai/dsh-skill-filesystem'
+          - id: tool-skill
+            name: '@deepseek-ai/dsh-tool-skill'
+          - id: tool-todo
+            name: '@deepseek-ai/dsh-tool-todo'
+            config:
+              allowParallelInProgress: true
+          - id: tool-web
+            name: '@deepseek-ai/dsh-tool-web'
+            config:
+              fetch: true
+              searchTimeoutMs: 60000
+          - id: present
+            name: '@deepseek-ai/dsh-tool-present'
+          - id: compaction
+            name: cordis:group
+            group: true
+            isolate:
+              compaction: true
+              toolResultPruner: true
+            config:
+              - id: compaction-basic
+                name: '@deepseek-ai/dsh-compaction-basic'
+              - id: tool-result-pruner
+                name: '@deepseek-ai/dsh-compaction-tool-result-pruner'
+                config:
+                  thresholdChars: 8192
+                  headChars: 4096
+                  tailChars: 1024
+
+    # ------------------------------------------------------------------
+    # 只读审计
+    # ------------------------------------------------------------------
+    - id: preset-wb-auditor
+      name: '@deepseek-ai/dsh-agent-preset'
+      config:
+        id: wb-auditor
+        name: 工坊 · 审计
+        description: 只读审计员：安全、质量、依赖，证据优先，不改文件。
+        order: 12
+        plugins:
+          - id: persona
+            name: '@deepseek-ai/dsh-persona'
+            config:
+              prefix: |
+                你是「工坊 · 审计」，只读安全与质量审计员。
+
+                ## 边界
+                - 只读：可以读文件、跑只读命令、查日志；不得写入、删除、安装或改变系统状态。
+                - 证据：每条发现标注 文件:行 或命令输出；区分「已验证」与「推测」。
+                - 分级：阻断 / 重要 / 次要 / 建议；说明触发条件、影响面、修复方向。
+                - 覆盖：认证授权、输入边界、依赖与供应链、密钥与配置、错误处理、并发与资源。
+                - 不编造：没跑的验证写「未执行」，并给出可复现命令。
+
+                ## 输出
+                先给结论（风险等级 + 数量），再给发现列表，最后给「我未能验证的部分」。
+          - id: time-context
+            name: '@deepseek-ai/dsh-time-context'
+          - id: tool-pwsh
+            name: '@deepseek-ai/dsh-tool-pwsh'
+            disabled: !!js process.platform !== 'win32'
+          - id: tool-fs
+            name: '@deepseek-ai/dsh-tool-fs'
+          - id: tool-fs-search
+            name: '@deepseek-ai/dsh-tool-fs-search'
+            config:
+              sampleOverCapGlobResults: false
+          - id: skill-filesystem
+            name: '@deepseek-ai/dsh-skill-filesystem'
+          - id: tool-skill
+            name: '@deepseek-ai/dsh-tool-skill'
+          - id: tool-todo
+            name: '@deepseek-ai/dsh-tool-todo'
+            config:
+              allowParallelInProgress: true
+          - id: tool-web
+            name: '@deepseek-ai/dsh-tool-web'
+            config:
+              fetch: true
+              searchTimeoutMs: 60000
+          - id: present
+            name: '@deepseek-ai/dsh-tool-present'
+          - id: compaction
+            name: cordis:group
+            group: true
+            isolate:
+              compaction: true
+              toolResultPruner: true
+            config:
+              - id: compaction-basic
+                name: '@deepseek-ai/dsh-compaction-basic'
+              - id: tool-result-pruner
+                name: '@deepseek-ai/dsh-compaction-tool-result-pruner'
+                config:
+                  thresholdChars: 8192
+                  headChars: 4096
+                  tailChars: 1024
+
+    # ------------------------------------------------------------------
+    # 写作者
+    # ------------------------------------------------------------------
+    - id: preset-wb-scribe
+      name: '@deepseek-ai/dsh-agent-preset'
+      config:
+        id: wb-scribe
+        name: 工坊 · 写作
+        description: 中文写作与研究：结构、事实、去 AI 味，直接给可发布成稿。
+        order: 13
+        plugins:
+          - id: persona
+            name: '@deepseek-ai/dsh-persona'
+            config:
+              prefix: |
+                你是「工坊 · 写作」，负责中文写作与研究。
+
+                ## 流程
+                1. 先确认读者、目的、篇幅、语气；没给就按默认（专业读者、说明文、1500 字、克制）并在开头标注。
+                2. 需要事实时先检索并记录来源；区分事实与观点。
+                3. 先列结构（3-6 个一级标题），再写正文；每段只讲一件事。
+                4. 去 AI 味：不用「首先/其次/最后」串联，不堆四字词与空洞形容词，不写「总的来说」结尾。
+                5. 交付：直接给可发布成稿；引用给链接；需要时附 3 行摘要。
+
+                ## 风格
+                短句、具体名词、动词优先；能用数字就不用形容词；允许口语，但不油滑。
+          - id: time-context
+            name: '@deepseek-ai/dsh-time-context'
+          - id: tool-fs
+            name: '@deepseek-ai/dsh-tool-fs'
+          - id: tool-fs-search
+            name: '@deepseek-ai/dsh-tool-fs-search'
+            config:
+              sampleOverCapGlobResults: false
+          - id: skill-filesystem
+            name: '@deepseek-ai/dsh-skill-filesystem'
+          - id: tool-skill
+            name: '@deepseek-ai/dsh-tool-skill'
+          - id: tool-todo
+            name: '@deepseek-ai/dsh-tool-todo'
+            config:
+              allowParallelInProgress: true
+          - id: tool-web
+            name: '@deepseek-ai/dsh-tool-web'
+            config:
+              fetch: true
+              searchTimeoutMs: 60000
+          - id: present
+            name: '@deepseek-ai/dsh-tool-present'
+          - id: compaction
+            name: cordis:group
+            group: true
+            isolate:
+              compaction: true
+              toolResultPruner: true
+            config:
+              - id: compaction-basic
+                name: '@deepseek-ai/dsh-compaction-basic'
+              - id: tool-result-pruner
+                name: '@deepseek-ai/dsh-compaction-tool-result-pruner'
+                config:
+                  thresholdChars: 8192
+                  headChars: 4096
+                  tailChars: 1024
+
+    # ------------------------------------------------------------------
+    # 游戏工程师
+    # ------------------------------------------------------------------
+    - id: preset-wb-gamedev
+      name: '@deepseek-ai/dsh-agent-preset'
+      config:
+        id: wb-gamedev
+        name: 工坊 · 游戏
+        description: 独立游戏工程：玩法循环、前端、资源管线、打包验证。
+        order: 14
+        plugins:
+          - id: persona
+            name: '@deepseek-ai/dsh-persona'
+            config:
+              prefix: |
+                你是「工坊 · 游戏」，独立游戏工程师。
+
+                ## 关注点
+                - 可玩性循环：输入 → 反馈 → 奖励；改动先问「玩家能感知到什么」。
+                - 小步可回滚：一次只改一个系统；保留上一版可运行状态。
+                - 验证：能跑就跑，能截图就截图；用真实运行结果说话。
+                - 性能：帧预算、对象分配、绘制批次；不为微优化牺牲可读性。
+                - 资源管线：素材命名、尺寸、打包体积；新增资源记录来源与许可。
+
+                ## 纪律
+                先读后改；最小 diff；改完给出「怎么运行/怎么验证」；不伪造运行结果。
+          - id: time-context
+            name: '@deepseek-ai/dsh-time-context'
+          - id: tool-pwsh
+            name: '@deepseek-ai/dsh-tool-pwsh'
+            disabled: !!js process.platform !== 'win32'
+          - id: tool-fs
+            name: '@deepseek-ai/dsh-tool-fs'
+          - id: tool-fs-search
+            name: '@deepseek-ai/dsh-tool-fs-search'
+            config:
+              sampleOverCapGlobResults: false
+          - id: tool-jobs
+            name: '@deepseek-ai/dsh-tool-jobs'
+          - id: skill-filesystem
+            name: '@deepseek-ai/dsh-skill-filesystem'
+          - id: tool-skill
+            name: '@deepseek-ai/dsh-tool-skill'
+          - id: tool-todo
+            name: '@deepseek-ai/dsh-tool-todo'
+            config:
+              allowParallelInProgress: true
+          - id: tool-web
+            name: '@deepseek-ai/dsh-tool-web'
+            config:
+              fetch: true
+              searchTimeoutMs: 60000
+          - id: present
+            name: '@deepseek-ai/dsh-tool-present'
+          - id: compaction
+            name: cordis:group
+            group: true
+            isolate:
+              compaction: true
+              toolResultPruner: true
+            config:
+              - id: compaction-basic
+                name: '@deepseek-ai/dsh-compaction-basic'
+              - id: tool-result-pruner
+                name: '@deepseek-ai/dsh-compaction-tool-result-pruner'
+                config:
+                  thresholdChars: 8192
+                  headChars: 4096
+                  tailChars: 1024
